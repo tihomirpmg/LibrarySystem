@@ -1,0 +1,98 @@
+﻿@page "/library-book/create"
+@page "/library-book/edit/{Id:int}"
+@using LibrarySystem.Models
+@using LibrarySystem.Bussines.Repos.IRepository
+@inject ILibraryBookRepository LibraryBookRepository
+@inject NavigationManager NavigationManager
+
+<div class="row mt-2 mb-5">
+    <h3 class="card-title text-info mb-3 ml-3">@Title Library Book</h3>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <EditForm Model="@LibraryBookModel" OnValidSubmit="HandleLibraryBookUpsert">
+                    <DataAnnotationsValidator />
+                    @*<ValidationSummary />*@
+                    <div class="form-group">
+                        <label>Name</label>
+                        <InputText @bind-Value="LibraryBookModel.Name" class="form-control"></InputText>
+                        <ValidationMessage For="()=>LibraryBookModel.Name"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Condition</label>
+                        <InputText @bind-Value="LibraryBookModel.Condition" class="form-control"></InputText>
+                        <ValidationMessage For="()=>LibraryBookModel.Condition"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Bearer</label>
+                        <InputText @bind-Value="LibraryBookModel.Bearer" class="form-control"></InputText>
+                        <ValidationMessage For="()=>LibraryBookModel.Bearer"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Stocked</label>
+                        <InputText @bind-Value="LibraryBookModel.Stock" class="form-control"></InputText>
+                        <ValidationMessage For="()=>LibraryBookModel.Stock"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">@Title Book</button>
+                        <NavLink href="library-book" class="btn btn-secondary">Back to Index</NavLink>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+    private LibraryBookDTo LibraryBookModel { get; set; } = new LibraryBookDTo();
+    private string Title { get; set; } = "Create";
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationState { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authenticationState = await AuthenticationState;
+        if (!authenticationState.User.IsInRole(LibrarySystem.Common.Details.Role_Admin))
+        {
+            NavigationManager.NavigateTo("/identity/account/login");
+        }
+
+        if (Id != null)
+        {
+            Title = "Update";
+            LibraryBookModel = await LibraryBookRepository.GetBook(Id.Value);
+        }
+        else
+        {
+            LibraryBookModel = new LibraryBookDTo();
+        }
+    }
+
+    private async Task HandleLibraryBookUpsert()
+    {
+        try
+        {
+            var bookDetailsByName = await LibraryBookRepository.IsBookUnique(LibraryBookModel.Name, LibraryBookModel.Id);
+            if (bookDetailsByName != null)
+            {
+                return;
+            }
+
+            if (LibraryBookModel.Id!=0 && Title == "Update")
+            {
+                var updateBookResult = await LibraryBookRepository.UpdateBook(LibraryBookModel.Id, LibraryBookModel);
+            }
+            else
+            {
+                var createdResult = await LibraryBookRepository.CreateBook(LibraryBookModel);
+            }
+        }
+        catch(Exception ex)
+        {
+            throw ex;
+        }
+        NavigationManager.NavigateTo("library-book");
+    }
+}

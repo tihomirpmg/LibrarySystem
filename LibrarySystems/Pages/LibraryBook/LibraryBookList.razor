@@ -1,0 +1,52 @@
+﻿@page "/library-book"
+@using LibrarySystem.Models
+@using LibrarySystem.Bussines.Repos.IRepository
+@inject ILibraryBookRepository LibraryBookRepository
+
+<div class="row mt-4">
+    <div class="col=8">
+        <h4 class="card-title text-info">Library Book's</h4>
+    </div>
+    <div class="col-3 offset-1">
+        <NavLink href="library-book/create" class="btn btn-info form-control">+Add new book</NavLink>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-12">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Condition</th>
+                    <th>Bearer</th>
+                    <th>Stocked</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (LibraryBooks.Any())
+            {
+                    foreach(var book in LibraryBooks)
+                {
+                <tr>
+                    <td>@book.Name</td>
+                    <td>@book.Condition</td>
+                    <td>@book.Bearer</td>
+                    <td>@book.Stock</td>
+                    <td>
+                        <NavLink href="@($"library-book/edit/{book.Id}")" class="btn btn-primary">Edit</NavLink>
+                    </td>
+                </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+@code {
+    private IEnumerable<LibraryBookDTo> LibraryBooks { get; set; } = new List<LibraryBookDTo>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        LibraryBooks = await LibraryBookRepository.GetAllBooks();
+    }
+}

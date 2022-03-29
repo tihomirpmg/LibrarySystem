@@ -1,0 +1,60 @@
+﻿@page "/add-title"
+@using LibrarySystem.Models
+@using LibrarySystem.Bussines.Repos.IRepository
+@inject ITitleRepository TitleRepository
+@inject IImagesRepository ImagesRepository
+
+<div class="row mt-4">
+    <div class="col-3 offset-1">
+        <NavLink href="add-title/create" class="btn btn-info form-control">+Add new book</NavLink>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-12">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    @*<th>Image</th>*@
+                    <th>Description</th>
+                    <th>Writer</th>
+                    <th>ReleaseYear</th>
+                    <th>ISBN(if have)</th>
+                    <th>Type</th>
+                    <th>Publisher</th>
+                    <th>Section</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Titles.Any())
+                {
+                    foreach (var book in Titles)
+                    {
+                        <tr>
+                            <td>@book.Name</td>
+                            @*<td>@book.TitleImages</td>*@
+                            <td>@book.Description</td>
+                            <td>@book.Writer</td>
+                            <td>@book.ReleaseYear</td>
+                            <td>@book.Isbn</td>
+                            <td>@book.Type</td>
+                            <td>@book.Publisher</td>
+                            <td>@book.Section</td>
+                            <td>
+                                <NavLink href="@($"add-title/edit/{book.Id}")" class="btn btn-primary">Edit</NavLink>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@code {
+    private IEnumerable<TitleDTO> Titles { get; set; } = new List<TitleDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Titles = await TitleRepository.GetAllBooks();
+    }
+}
