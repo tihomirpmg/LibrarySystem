@@ -39,7 +39,7 @@ namespace LibrarySystem.Bussines.Repos
             }
             catch (Exception ex)
             {
-                return null;
+                throw new RepositoryException("Can not get all books.");
             }
         }
 
@@ -53,7 +53,7 @@ namespace LibrarySystem.Bussines.Repos
             }
             catch (Exception ex)
             {
-                return null;
+                throw new RepositoryException("Can not get this book");
             }
         }
         public async Task<int> DeleteBook(int bookId)
@@ -87,7 +87,7 @@ namespace LibrarySystem.Bussines.Repos
             }
             catch (Exception ex)
             {
-                return null;
+                throw new RepositoryException("Book is not unique.");
             }
         }
 
@@ -114,7 +114,7 @@ namespace LibrarySystem.Bussines.Repos
             }
             catch (Exception ex)
             {
-                return null;
+                throw new RepositoryException("Book cannot be updated.");
             }
         }
     }

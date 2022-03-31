@@ -39,9 +39,9 @@ namespace LibrarySystem.Bussines.Repos
                 IEnumerable<LibraryBookDTo> libraryBookDTos=_mapper.Map<IEnumerable<LibraryBook>, IEnumerable< LibraryBookDTo >> (_db.LibraryBook);
                 return libraryBookDTos;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return null;
+                throw new RepositoryException("Can not get all books.");
             }
         }
 
@@ -55,7 +55,7 @@ namespace LibrarySystem.Bussines.Repos
             }
             catch (Exception ex)
             {
-                return null;
+                throw new RepositoryException("Can not get this book");
             }
         }
         public async Task<int> DeleteBook(int bookId)
@@ -83,13 +83,14 @@ namespace LibrarySystem.Bussines.Repos
                 {
                     LibraryBookDTo libraryBook = _mapper.Map<LibraryBook, LibraryBookDTo>(
                                         await _db.LibraryBook.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower()
-                                        && x.Id!=bookId));
+                                        && x.Id != bookId));
                     return libraryBook;
+                    
                 }
             }
             catch (Exception ex)
             {
-                return null;
+                throw new RepositoryException("Book is not unique.");
             }
         }
 
@@ -114,9 +115,9 @@ namespace LibrarySystem.Bussines.Repos
                     return null;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return null;
+                throw new RepositoryException("Book cannot be updated.");
             }
         }
     }
