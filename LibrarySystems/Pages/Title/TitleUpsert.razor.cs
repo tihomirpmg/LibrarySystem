@@ -24,7 +24,8 @@ namespace LibrarySystems.Pages.Title
         public Task<AuthenticationState> AuthenticationState { get; set; }
 
         public bool hasError = false;
-        string errorMessage;
+        public string errorMessage;
+        public string errorText;
 
         protected override async Task OnInitializedAsync()
         {
@@ -87,6 +88,7 @@ namespace LibrarySystems.Pages.Title
             {
                 hasError = true;
                 errorMessage = "An error occurred while adding image to title.";
+                errorText = ex.Message;
             }
             NavigationManager.NavigateTo("add-title");
         }
@@ -128,6 +130,7 @@ namespace LibrarySystems.Pages.Title
             {
                 hasError = true;
                 errorMessage = "An error occurred while uploading image to title.";
+                errorText = ex.Message;
             }
         }
         private async Task AddTitleImage(TitleDTO bookDetails)
@@ -161,12 +164,12 @@ namespace LibrarySystems.Pages.Title
                     DeleteImageNames.Add(imageUrl);
                 }
                 TitleModel.ImageUrls.RemoveAt(imageIndex);
-                
             }
             catch (RepositoryException ex)
             {
                 hasError = true;
                 errorMessage = "An error occurred while removing image.";
+                errorText = ex.Message;
             }
         }
     }

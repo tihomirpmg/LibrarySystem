@@ -19,7 +19,8 @@ namespace LibrarySystems.Pages.LibraryBook
         public Task<AuthenticationState> AuthenticationState { get; set; }
 
         public bool hasError = false;
-        string errorMessage;
+        public string errorMessage;
+        public string errorText;
 
         protected override async Task OnInitializedAsync()
         {
@@ -59,10 +60,11 @@ namespace LibrarySystems.Pages.LibraryBook
                     var createdResult = await LibraryBookRepository.CreateBook(LibraryBookModel);
                 }
             }
-            catch (Exception ex)
+            catch (RepositoryException ex)
             {
                 hasError = true;
                 errorMessage = "An error occurred while adding image to title.";
+                errorText = ex.Message;
             }
             NavigationManager.NavigateTo("library-book");
         }
