@@ -25,8 +25,6 @@ namespace LibrarySystem.Bussines.Repos
         public async Task<LibraryBookDTo> CreateBook(LibraryBookDTo libraryBookDTo)
         {
             LibraryBook libraryBook = _mapper.Map<LibraryBookDTo, LibraryBook>(libraryBookDTo);
-            //libraryBook.CreatedDate = DateTime.Now;
-            //libraryBook.CreatedBy = "";
             var addedLibraryBook = _db.LibraryBook.Add(libraryBook);
             await _db.SaveChangesAsync();
             return _mapper.Map<LibraryBook, LibraryBookDTo>(addedLibraryBook.Entity);
@@ -103,8 +101,6 @@ namespace LibrarySystem.Bussines.Repos
                     //valid
                     LibraryBook bookDetails = await _db.LibraryBook.FindAsync(bookId);
                     LibraryBook book = _mapper.Map<LibraryBookDTo, LibraryBook>(libraryBookDTo, bookDetails);
-                    //book.UpdatedBy = "";
-                    //book.UpdatedDate = DateTime.Now;
                     var updatedBook = _db.LibraryBook.Update(book);
                     await _db.SaveChangesAsync();
                     return _mapper.Map<LibraryBook, LibraryBookDTo>(updatedBook.Entity);

@@ -100,8 +100,6 @@ namespace LibrarySystem.Bussines.Repos
                     //valid
                     Title bookDetails = await _db.Title.FindAsync(bookId);
                     Title book = _mapper.Map<TitleDTO, Title>(titleDTO, bookDetails);
-                    //book.UpdatedBy = "";
-                    //book.UpdatedDate = DateTime.Now;
                     var updatedBook = _db.Title.Update(book);
                     await _db.SaveChangesAsync();
                     return _mapper.Map<Title, TitleDTO>(updatedBook.Entity);

@@ -36,7 +36,6 @@ namespace LibrarySystem.Bussines.Repos
             {
                 IEnumerable<SectionDTO> sectionDTOs = _mapper.Map<IEnumerable<Section>, IEnumerable<SectionDTO>>(_db.Section);
                 return sectionDTOs;
-                //throw new RepositoryException("Book Already Exist.");
             }
             catch (Exception ex)
             {
@@ -51,7 +50,6 @@ namespace LibrarySystem.Bussines.Repos
                 SectionDTO section = _mapper.Map<Section, SectionDTO>(
                 await _db.Section.FirstOrDefaultAsync(x => x.Id == bookId));
                 return section;
-                //throw new RepositoryException("Book Already Exist.");
             }
             catch (Exception ex)
             {
