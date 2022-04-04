@@ -37,7 +37,7 @@ namespace LibrarySystem.Bussines.Repos
             }
             catch (Exception ex)
             {
-                throw new RepositoryException("Can not get the sections");
+                throw new RepositoryException("Can not get the sections", ex);
             }
         }
 
@@ -51,7 +51,7 @@ namespace LibrarySystem.Bussines.Repos
             }
             catch (Exception ex)
             {
-                throw new RepositoryException("Section does not exist.");
+                throw new RepositoryException("Section does not exist.", ex);
             }
         }
 
@@ -74,7 +74,7 @@ namespace LibrarySystem.Bussines.Repos
             }
             catch (Exception ex)
             {
-                throw new RepositoryException("Section cannot be updated.");
+                throw new RepositoryException("Section cannot be updated.", ex);
             }
         }
     }
