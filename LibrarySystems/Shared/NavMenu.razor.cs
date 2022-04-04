@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace LibrarySystems.Shared
+﻿namespace LibrarySystems.Shared
 {
     partial class NavMenu
     {

@@ -1,9 +1,7 @@
 ﻿#nullable disable
-
 namespace DataAcess.Data.Models
 {
     using LibrarySystem.Data.Data;
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
