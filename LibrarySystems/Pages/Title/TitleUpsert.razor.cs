@@ -53,7 +53,7 @@ namespace LibrarySystems.Pages.Title
         {
             try
             {
-                var bookDetailsByName = await TitleRepository.IsBookUnique(TitleModel.Name, TitleModel.Id);
+                var bookDetailsByName = await TitleRepository.UniqueBook(TitleModel.Name, TitleModel.Id);
                 if (bookDetailsByName != null)
                 {
                     return;

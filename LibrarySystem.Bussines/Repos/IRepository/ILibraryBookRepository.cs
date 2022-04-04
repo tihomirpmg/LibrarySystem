@@ -9,9 +9,9 @@ namespace LibrarySystem.Bussines.Repos.IRepository
         public Task<LibraryBookDTo> CreateBook(LibraryBookDTo libraryBookDTo);
         public Task<LibraryBookDTo> UpdateBook(int bookId, LibraryBookDTo libraryBookDTo);
         public Task<LibraryBookDTo> GetBook(int bookId);
-        public Task<int> DeleteBook(int bookId);
+        public void DeleteBook(int bookId);
         public Task<IEnumerable<LibraryBookDTo>> GetAllBooks();
-        public Task<LibraryBookDTo> IsBookUnique(string name, int bookId=0);
+        public Task<LibraryBookDTo> UniqueBook(string name, int bookId=0);
 
     }
 }

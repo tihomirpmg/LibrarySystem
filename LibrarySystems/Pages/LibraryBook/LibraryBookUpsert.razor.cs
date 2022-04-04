@@ -42,7 +42,7 @@ namespace LibrarySystems.Pages.LibraryBook
         {
             try
             {
-                var bookDetailsByName = await LibraryBookRepository.IsBookUnique(LibraryBookModel.Name, LibraryBookModel.Id);
+                var bookDetailsByName = await LibraryBookRepository.UniqueBook(LibraryBookModel.Name, LibraryBookModel.Id);
                 if (bookDetailsByName != null)
                 {
                     return;
