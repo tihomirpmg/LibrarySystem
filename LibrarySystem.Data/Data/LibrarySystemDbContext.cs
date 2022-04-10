@@ -1,10 +1,12 @@
-﻿using DataAcess.Data.Models;
+﻿using System.Threading.Tasks;
+using DataAcess.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibrarySystem.Data.Data
 {
-    public class LibrarySystemDbContext : IdentityDbContext
+    public class LibrarySystemDbContext : IdentityDbContext<IdentityUser>
     {
         public  LibrarySystemDbContext(DbContextOptions<LibrarySystemDbContext> options) : base(options)
         {
