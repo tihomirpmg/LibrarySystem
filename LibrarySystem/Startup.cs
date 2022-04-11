@@ -31,12 +31,16 @@ namespace LibrarySystem
                     options.UseSqlServer(
                         Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<LibrarySystemDbContext>();
-            
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //        .AddEntityFrameworkStores<LibrarySystemDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<LibrarySystemDbContext>().AddDefaultTokenProviders()
+                .AddDefaultUI();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ILibraryBookRepository, LibraryBookRepository>();
             services.AddScoped<ITitleRepository, TitleRepository>();
+            services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddScoped<IImagesRepository, ImagesRepository>();
             services.AddScoped<IFileUpload, FileUpload>();
             services.AddScoped<ISectionRepository, SectionRepository>();
@@ -45,7 +49,7 @@ namespace LibrarySystem
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbInitializer dbInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -62,6 +66,7 @@ namespace LibrarySystem
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            dbInitializer.Initialize();
 
             app.UseEndpoints(endpoints =>
             {
