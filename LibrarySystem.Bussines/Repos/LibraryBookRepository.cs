@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DataAcess.Data.Models;
-using LibrarySystem.Bussines.Repos.IRepository;
+using LibrarySystem.Bussines.Repos;
 using LibrarySystem.Data.Data;
 using LibrarySystem.Models;
 using Microsoft.EntityFrameworkCore;
@@ -64,7 +64,7 @@ namespace LibrarySystem.Bussines.Repos
             }
         }
 
-        public async Task<LibraryBookDto> UniqueBook(string name, int bookId=0)
+        public async Task<LibraryBookDto> GetUniqueBook(string name, int bookId=0)
         {
             try
             {

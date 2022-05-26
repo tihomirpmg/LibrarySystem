@@ -11,6 +11,6 @@ namespace LibrarySystem.Bussines.Repos
         public Task<TitleDto> GetBook(int bookId);
         public void DeleteBook(int bookId);
         public Task<IEnumerable<TitleDto>> GetAllBooks();
-        public Task<TitleDto> UniqueBook(string name, int bookId = 0);
+        public Task<TitleDto> GetUniqueBook(string name, int bookId = 0);
     }
 }
