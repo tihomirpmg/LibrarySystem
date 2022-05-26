@@ -2,7 +2,7 @@
 
 namespace LibrarySystem.Models
 {
-    public class LibraryBookDTo
+    public class LibraryBookDto
     {
         [Key]
         public int Id { get; set; }

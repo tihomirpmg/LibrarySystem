@@ -13,9 +13,9 @@ namespace LibrarySystem.Areas.Title
     {
         [Parameter]
         public int? Id { get; set; }
-        private TitleDTO TitleModel { get; set; } = new TitleDTO();
+        private TitleDto TitleModel { get; set; } = new TitleDto();
         private string Create { get; set; } = "Create";
-        private ImagesDTO TitleImage { get; set; } = new ImagesDTO();
+        private ImagesDto TitleImage { get; set; } = new ImagesDto();
         private List<string> DeleteImageNames { get; set; } = new List<string>();
         private bool IsImageUploadProcessStarted { get; set; } = false;
 
@@ -45,7 +45,7 @@ namespace LibrarySystem.Areas.Title
             }
             else
             {
-                TitleModel = new TitleDTO();
+                TitleModel = new TitleDto();
             }
         }
 
@@ -132,13 +132,13 @@ namespace LibrarySystem.Areas.Title
                 errorText = ex.Message;
             }
         }
-        private async Task AddTitleImage(TitleDTO bookDetails)
+        private async Task AddTitleImage(TitleDto bookDetails)
         {
             foreach (var imageUrl in TitleModel.ImageUrls)
             {
                 if (TitleModel.TitleImages == null || TitleModel.TitleImages.Where(x => x.BookImageUrl == imageUrl).Count() == 0)
                 {
-                    TitleImage = new ImagesDTO()
+                    TitleImage = new ImagesDto()
                     {
                         BookId = bookDetails.Id,
                         BookImageUrl = imageUrl

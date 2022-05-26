@@ -6,12 +6,12 @@ namespace LibrarySystem.Bussines.Repos.IRepository
 {
     public interface ILibraryBookRepository
     {
-        public Task<LibraryBookDTo> CreateBook(LibraryBookDTo libraryBookDTo);
-        public Task<LibraryBookDTo> UpdateBook(int bookId, LibraryBookDTo libraryBookDTo);
-        public Task<LibraryBookDTo> GetBook(int bookId);
+        public Task<LibraryBookDto> CreateBook(LibraryBookDto libraryBookDto);
+        public Task<LibraryBookDto> UpdateBook(int bookId, LibraryBookDto libraryBookDto);
+        public Task<LibraryBookDto> GetBook(int bookId);
         public void DeleteBook(int bookId);
-        public Task<IEnumerable<LibraryBookDTo>> GetAllBooks();
-        public Task<LibraryBookDTo> UniqueBook(string name, int bookId=0);
+        public Task<IEnumerable<LibraryBookDto>> GetAllBooks();
+        public Task<LibraryBookDto> UniqueBook(string name, int bookId=0);
 
     }
 }

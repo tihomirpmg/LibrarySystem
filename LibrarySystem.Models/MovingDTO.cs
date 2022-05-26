@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LibrarySystem.Models
 {
-    public class MovingDTO
+    public class MovingDto
     {
         public DateTime? TimeTaken { get; set; }
 

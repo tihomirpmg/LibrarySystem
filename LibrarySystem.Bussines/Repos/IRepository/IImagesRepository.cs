@@ -6,7 +6,7 @@ namespace LibrarySystem.Bussines.Repos.IRepository
 {
     public interface IImagesRepository
     {
-        public Task<int> CreateNewImage(ImagesDTO imageDTO);
+        public Task<int> CreateNewImage(ImagesDto imageDto);
 
         public Task<int> DeleteImageByImageId(int imageId);
 
@@ -14,6 +14,6 @@ namespace LibrarySystem.Bussines.Repos.IRepository
 
         public Task<int> DeleteImageByImageUrl(string imageUrl);
 
-        public Task<IEnumerable<ImagesDTO>> GetImages(int bookId);
+        public Task<IEnumerable<ImagesDto>> GetImages(int bookId);
     }
 }

@@ -20,20 +20,20 @@ namespace LibrarySystem.Bussines.Repos
             _db = db;
         }
 
-        public async Task<LibraryBookDTo> CreateBook(LibraryBookDTo libraryBookDTo)
+        public async Task<LibraryBookDto> CreateBook(LibraryBookDto libraryBookDto)
         {
-            LibraryBook libraryBook = _mapper.Map<LibraryBookDTo, LibraryBook>(libraryBookDTo);
+            LibraryBook libraryBook = _mapper.Map<LibraryBookDto, LibraryBook>(libraryBookDto);
             var addedLibraryBook = _db.LibraryBook.Add(libraryBook);
             await _db.SaveChangesAsync();
-            return _mapper.Map<LibraryBook, LibraryBookDTo>(addedLibraryBook.Entity);
+            return _mapper.Map<LibraryBook, LibraryBookDto>(addedLibraryBook.Entity);
         }
 
-        public async Task<IEnumerable<LibraryBookDTo>> GetAllBooks()
+        public async Task<IEnumerable<LibraryBookDto>> GetAllBooks()
         {
             try
             {
-                IEnumerable<LibraryBookDTo> libraryBookDTos=_mapper.Map<IEnumerable<LibraryBook>, IEnumerable< LibraryBookDTo >> (_db.LibraryBook);
-                return libraryBookDTos;
+                IEnumerable<LibraryBookDto> libraryBookDtos=_mapper.Map<IEnumerable<LibraryBook>, IEnumerable< LibraryBookDto >> (_db.LibraryBook);
+                return libraryBookDtos;
             }
             catch (Exception ex)
             {
@@ -41,11 +41,11 @@ namespace LibrarySystem.Bussines.Repos
             }
         }
 
-        public async Task<LibraryBookDTo> GetBook(int bookId)
+        public async Task<LibraryBookDto> GetBook(int bookId)
         {
             try
             {
-                LibraryBookDTo libraryBook = _mapper.Map<LibraryBook,LibraryBookDTo>(
+                LibraryBookDto libraryBook = _mapper.Map<LibraryBook,LibraryBookDto>(
                     await _db.LibraryBook.FirstOrDefaultAsync(x => x.Id == bookId));
                 return libraryBook;
             }
@@ -64,19 +64,19 @@ namespace LibrarySystem.Bussines.Repos
             }
         }
 
-        public async Task<LibraryBookDTo> UniqueBook(string name, int bookId=0)
+        public async Task<LibraryBookDto> UniqueBook(string name, int bookId=0)
         {
             try
             {
                 if (bookId == 0)
                 {
-                    LibraryBookDTo libraryBook = _mapper.Map<LibraryBook, LibraryBookDTo>(
+                    LibraryBookDto libraryBook = _mapper.Map<LibraryBook, LibraryBookDto>(
                                         await _db.LibraryBook.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower()));
                     return libraryBook;
                 }
                 else
                 {
-                    LibraryBookDTo libraryBook = _mapper.Map<LibraryBook, LibraryBookDTo>(
+                    LibraryBookDto libraryBook = _mapper.Map<LibraryBook, LibraryBookDto>(
                                         await _db.LibraryBook.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower()
                                         && x.Id != bookId));
                     return libraryBook;
@@ -89,18 +89,18 @@ namespace LibrarySystem.Bussines.Repos
             }
         }
 
-        public async Task<LibraryBookDTo> UpdateBook(int bookId, LibraryBookDTo libraryBookDTo)
+        public async Task<LibraryBookDto> UpdateBook(int bookId, LibraryBookDto libraryBookDto)
         {
             try
             {
-                if (bookId == libraryBookDTo.Id)
+                if (bookId == libraryBookDto.Id)
                 {
                     //valid
                     LibraryBook bookDetails = await _db.LibraryBook.FindAsync(bookId);
-                    LibraryBook book = _mapper.Map<LibraryBookDTo, LibraryBook>(libraryBookDTo, bookDetails);
+                    LibraryBook book = _mapper.Map<LibraryBookDto, LibraryBook>(libraryBookDto, bookDetails);
                     var updatedBook = _db.LibraryBook.Update(book);
                     await _db.SaveChangesAsync();
-                    return _mapper.Map<LibraryBook, LibraryBookDTo>(updatedBook.Entity);
+                    return _mapper.Map<LibraryBook, LibraryBookDto>(updatedBook.Entity);
                 }
                 else
                 {

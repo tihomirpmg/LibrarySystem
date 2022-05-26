@@ -2,7 +2,7 @@
 
 namespace LibrarySystem.Models
 {
-    public class SectionDTO
+    public class SectionDto
     {
         [Key]
         public int Id { get; set; }

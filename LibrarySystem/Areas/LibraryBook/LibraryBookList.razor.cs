@@ -6,7 +6,7 @@ namespace LibrarySystem.Areas.LibraryBook
 {
     partial class LibraryBookList
     {
-        private IEnumerable<LibraryBookDTo> LibraryBooks { get; set; } = new List<LibraryBookDTo>();
+        private IEnumerable<LibraryBookDto> LibraryBooks { get; set; } = new List<LibraryBookDto>();
 
         protected override async Task OnInitializedAsync()
         {

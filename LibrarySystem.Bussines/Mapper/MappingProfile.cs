@@ -9,16 +9,16 @@ namespace LibrarySystem.Bussines.Mapper
     {
         public MappingProfile()
         {
-            CreateMap<LibraryBookDTo, LibraryBook>();
-            CreateMap<LibraryBook, LibraryBookDTo>();
+            CreateMap<LibraryBookDto, LibraryBook>();
+            CreateMap<LibraryBook, LibraryBookDto>();
 
-            CreateMap<TitleDTO, Title>();
-            CreateMap<Title, TitleDTO>();
+            CreateMap<TitleDto, Title>();
+            CreateMap<Title, TitleDto>();
 
-            CreateMap<Images, ImagesDTO>().ReverseMap();
+            CreateMap<Images, ImagesDto>().ReverseMap();
 
-            CreateMap<SectionDTO, Section>();
-            CreateMap<Section, SectionDTO>();
+            CreateMap<SectionDto, Section>();
+            CreateMap<Section, SectionDto>();
         }
     }
 }

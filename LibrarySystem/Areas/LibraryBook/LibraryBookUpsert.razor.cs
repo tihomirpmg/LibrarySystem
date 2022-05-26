@@ -10,7 +10,7 @@ namespace LibrarySystem.Areas.LibraryBook
     {
         [Parameter]
         public int? Id { get; set; }
-        private LibraryBookDTo LibraryBookModel { get; set; } = new LibraryBookDTo();
+        private LibraryBookDto LibraryBookModel { get; set; } = new LibraryBookDto();
         private string Title { get; set; } = "Create";
         [CascadingParameter]
         public Task<AuthenticationState> AuthenticationState { get; set; }
@@ -34,7 +34,7 @@ namespace LibrarySystem.Areas.LibraryBook
             }
             else
             {
-                LibraryBookModel = new LibraryBookDTo();
+                LibraryBookModel = new LibraryBookDto();
             }
         }
 

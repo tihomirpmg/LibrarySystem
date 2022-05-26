@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LibrarySystem.Models
 {
-    public class TitleDTO
+    public class TitleDto
     {
         [Key]
         public int Id { get; set; }
@@ -27,7 +27,7 @@ namespace LibrarySystem.Models
         [Required(ErrorMessage = "Please enter book section")]
         public string Section { get; set; }
 
-        public virtual ICollection<ImagesDTO> TitleImages { get; set; }
+        public virtual ICollection<ImagesDto> TitleImages { get; set; }
 
         public List<string> ImageUrls { get; set; }
     }

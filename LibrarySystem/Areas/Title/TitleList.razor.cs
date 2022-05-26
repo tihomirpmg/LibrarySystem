@@ -6,7 +6,7 @@ namespace LibrarySystem.Areas.Title
 {
     partial class TitleList
     {
-        private IEnumerable<TitleDTO> Titles { get; set; } = new List<TitleDTO>();
+        private IEnumerable<TitleDto> Titles { get; set; } = new List<TitleDto>();
 
         protected override async Task OnInitializedAsync()
         {
