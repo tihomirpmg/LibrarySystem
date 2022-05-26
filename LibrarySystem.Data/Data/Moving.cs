@@ -11,6 +11,7 @@ namespace DataAcess.Data.Models
         public DateTime? ReturnDate { get; set; }
 
         public string Type { get; set; }
+
         [Key]
         public string Reader { get; set; }
 

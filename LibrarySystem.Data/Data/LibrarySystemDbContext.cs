@@ -8,10 +8,12 @@ namespace LibrarySystem.Data.Data
 {
     public class LibrarySystemDbContext : IdentityDbContext<IdentityUser>
     {
-        public  LibrarySystemDbContext(DbContextOptions<LibrarySystemDbContext> options) : base(options)
+        public  LibrarySystemDbContext(DbContextOptions<LibrarySystemDbContext> options) 
+            : base(options)
         {
 
         }
+
         public DbSet<LibraryBook> LibraryBook { get; set; }
 
         public DbSet<User> User { get; set; }

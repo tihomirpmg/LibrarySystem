@@ -7,23 +7,31 @@ namespace LibrarySystem.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required(ErrorMessage = "Please enter book name")]
         public string Name { get; set; }
+
         [Required(ErrorMessage = "Please enter book description")]
         public string Description { get; set; }
+
         [Required(ErrorMessage = "Please enter book writer")]
         public string Writer { get; set; }
+
         [Required(ErrorMessage ="Please enter book released year")]
         public int ReleaseYear { get; set; }
+
         public int? Isbn { get; set; }
+
         [Required(ErrorMessage = "Please enter book type")]
         public string Type { get; set; }
 
         public byte[] ImageContent { get; set; }
 
         public string ImageName { get; set; }
+
         [Required(ErrorMessage = "Please enter book publisher")]
         public string Publisher { get; set; }
+
         [Required(ErrorMessage = "Please enter book section")]
         public string Section { get; set; }
 
