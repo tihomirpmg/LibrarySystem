@@ -29,7 +29,7 @@ namespace LibrarySystem.Areas.Title
         protected override async Task OnInitializedAsync()
         {
             var authenticationState = await AuthenticationState;
-            if (!authenticationState.User.IsInRole(LibrarySystem.Common.Details.Role_Admin))
+            if (!authenticationState.User.IsInRole(LibrarySystem.Common.RoleNames.Admin))
             {
                 NavigationManager.NavigateTo("/identity/account/login");
             }
@@ -53,7 +53,7 @@ namespace LibrarySystem.Areas.Title
         {
             try
             {
-                var bookDetailsByName = await TitleRepository.UniqueBook(TitleModel.Name, TitleModel.Id);
+                var bookDetailsByName = await TitleRepository.GetUniqueBook(TitleModel.Name, TitleModel.Id);
                 if (bookDetailsByName != null)
                 {
                     return;

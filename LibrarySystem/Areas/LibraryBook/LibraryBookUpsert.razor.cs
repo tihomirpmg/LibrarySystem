@@ -22,7 +22,7 @@ namespace LibrarySystem.Areas.LibraryBook
         protected override async Task OnInitializedAsync()
         {
             var authenticationState = await AuthenticationState;
-            if (!authenticationState.User.IsInRole(LibrarySystem.Common.Details.Role_Admin))
+            if (!authenticationState.User.IsInRole(LibrarySystem.Common.RoleNames.Admin))
             {
                 NavigationManager.NavigateTo("/identity/account/login");
             }
@@ -42,7 +42,7 @@ namespace LibrarySystem.Areas.LibraryBook
         {
             try
             {
-                var bookDetailsByName = await LibraryBookRepository.UniqueBook(LibraryBookModel.Name, LibraryBookModel.Id);
+                var bookDetailsByName = await LibraryBookRepository.GetUniqueBook(LibraryBookModel.Name, LibraryBookModel.Id);
                 if (bookDetailsByName != null)
                 {
                     return;

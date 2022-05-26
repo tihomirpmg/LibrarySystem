@@ -6,7 +6,6 @@ using Microsoft.Extensions.Hosting;
 using System;
 using LibrarySystem.Data.Data;
 using Microsoft.EntityFrameworkCore;
-using LibrarySystem.Bussines.Repos.IRepository;
 using LibrarySystem.Bussines.Repos;
 using LibrarySystem.Service;
 using LibrarySystem.Service.IService;

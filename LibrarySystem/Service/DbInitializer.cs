@@ -34,11 +34,11 @@ namespace LibrarySystem.Service
             {
 
             }
-            if (_db.Roles.Any(x => x.Name == Details.Role_Admin)) return;
+            if (_db.Roles.Any(x => x.Name == RoleNames.Admin)) return;
 
-            _roleManager.CreateAsync(new IdentityRole(Details.Role_Admin)).GetAwaiter().GetResult();
-            _roleManager.CreateAsync(new IdentityRole(Details.Role_Librarian)).GetAwaiter().GetResult();
-            _roleManager.CreateAsync(new IdentityRole(Details.Role_Reader)).GetAwaiter().GetResult(); 
+            _roleManager.CreateAsync(new IdentityRole(RoleNames.Admin)).GetAwaiter().GetResult();
+            _roleManager.CreateAsync(new IdentityRole(RoleNames.Librarian)).GetAwaiter().GetResult();
+            _roleManager.CreateAsync(new IdentityRole(RoleNames.Reader)).GetAwaiter().GetResult(); 
 
             _userManager.CreateAsync(new IdentityUser
             {
@@ -48,7 +48,7 @@ namespace LibrarySystem.Service
             },"Admin123*").GetAwaiter().GetResult();
 
             IdentityUser user = _db.Users.FirstOrDefault(u => u.Email == "admin@gmail.com");
-            _userManager.AddToRoleAsync(user, Details.Role_Admin).GetAwaiter().GetResult();
+            _userManager.AddToRoleAsync(user, RoleNames.Admin).GetAwaiter().GetResult();
         }
     }
 }
