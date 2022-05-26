@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace LibrarySystem.Bussines.Repos.IRepository
+namespace LibrarySystem.Bussines.Repos
 {
     public interface ISectionRepository
     {
