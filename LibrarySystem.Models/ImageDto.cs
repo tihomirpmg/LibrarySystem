@@ -1,6 +1,6 @@
 ﻿namespace LibrarySystem.Models
 {
-    public class ImagesDto
+    public class ImageDto
     {
         public int Id { get; set; }
 

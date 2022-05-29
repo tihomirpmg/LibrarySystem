@@ -19,9 +19,9 @@ namespace LibrarySystem.Bussines.Repos
             _db = db;
         }
 
-        public async Task<int> CreateNewImage(ImagesDto imageDto)
+        public async Task<int> CreateNewImage(ImageDto imageDto)
         {
-            var image = _mapper.Map<ImagesDto, Images>(imageDto);
+            var image = _mapper.Map<ImageDto, Images>(imageDto);
             await _db.Images.AddAsync(image);
             return await _db.SaveChangesAsync();
         }
@@ -48,9 +48,9 @@ namespace LibrarySystem.Bussines.Repos
             return await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ImagesDto>> GetImages(int bookId)
+        public async Task<IEnumerable<ImageDto>> GetImages(int bookId)
         {
-            return _mapper.Map<IEnumerable<Images>, IEnumerable<ImagesDto>>(
+            return _mapper.Map<IEnumerable<Images>, IEnumerable<ImageDto>>(
             await _db.Images.Where(x => x.BookId == bookId).ToListAsync());
         }
     }

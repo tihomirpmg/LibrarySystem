@@ -15,7 +15,7 @@ namespace LibrarySystem.Bussines.Mapper
             CreateMap<TitleDto, Title>();
             CreateMap<Title, TitleDto>();
 
-            CreateMap<Images, ImagesDto>().ReverseMap();
+            CreateMap<Images, ImageDto>().ReverseMap();
 
             CreateMap<SectionDto, Section>();
             CreateMap<Section, SectionDto>();

@@ -15,7 +15,7 @@ namespace LibrarySystem.Areas.Title
         public int? Id { get; set; }
         private TitleDto TitleModel { get; set; } = new TitleDto();
         private string Create { get; set; } = "Create";
-        private ImagesDto TitleImage { get; set; } = new ImagesDto();
+        private ImageDto TitleImage { get; set; } = new ImageDto();
         private List<string> DeleteImageNames { get; set; } = new List<string>();
         private bool IsImageUploadProcessStarted { get; set; } = false;
 
@@ -138,7 +138,7 @@ namespace LibrarySystem.Areas.Title
             {
                 if (TitleModel.TitleImages == null || TitleModel.TitleImages.Where(x => x.BookImageUrl == imageUrl).Count() == 0)
                 {
-                    TitleImage = new ImagesDto()
+                    TitleImage = new ImageDto()
                     {
                         BookId = bookDetails.Id,
                         BookImageUrl = imageUrl

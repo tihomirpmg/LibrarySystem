@@ -35,7 +35,7 @@ namespace LibrarySystem.Models
         [Required(ErrorMessage = "Please enter book section")]
         public string Section { get; set; }
 
-        public virtual ICollection<ImagesDto> TitleImages { get; set; }
+        public virtual ICollection<ImageDto> TitleImages { get; set; }
 
         public List<string> ImageUrls { get; set; }
     }
