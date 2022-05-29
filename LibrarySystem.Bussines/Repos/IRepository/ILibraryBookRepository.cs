@@ -9,7 +9,7 @@ namespace LibrarySystem.Bussines.Repos
         public Task<LibraryBookDto> CreateBookAsync(LibraryBookDto libraryBookDto);
         public Task<LibraryBookDto> UpdateBookAsync(int bookId, LibraryBookDto libraryBookDto);
         public Task<LibraryBookDto> GetBookAsync(int bookId);
-        public void DeleteBook(int bookId);
+        public Task<int> DeleteBookAsync(int bookId);
         public Task<IEnumerable<LibraryBookDto>> GetAllBooksAsync();
         public Task<LibraryBookDto> GetUniqueBookAsync(string name, int bookId = 0);
     }

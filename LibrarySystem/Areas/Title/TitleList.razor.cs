@@ -10,7 +10,7 @@ namespace LibrarySystem.Areas.Title
 
         protected override async Task OnInitializedAsync()
         {
-            Titles = await TitleRepository.GetAllBooks();
+            Titles = await TitleRepository.GetAllBooksAsync();
         }
     }
 }

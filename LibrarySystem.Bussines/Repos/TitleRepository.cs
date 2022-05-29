@@ -55,14 +55,15 @@ namespace LibrarySystem.Bussines.Repos
             }
         }
 
-        public async void DeleteBook(int bookId)
+        public async Task<int> DeleteBookAsync(int bookId)
         {
             var bookDetails = await _db.Title.FindAsync(bookId);
             if (bookDetails != null)
             {
                 _db.Title.Remove(bookDetails);
-                await _db.SaveChangesAsync();
+                return await _db.SaveChangesAsync();
             }
+            return 0;
         }
 
         public async Task<TitleDto> GetUniqueBookAsync(string name, int bookId = 0)

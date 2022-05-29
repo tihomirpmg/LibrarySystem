@@ -54,14 +54,15 @@ namespace LibrarySystem.Bussines.Repos
                 throw new RepositoryException("Can not get this book", ex);
             }
         }
-        public async void DeleteBook(int bookId)
+        public async Task<int> DeleteBookAsync(int bookId)
         {
             var bookDetails = await _db.LibraryBook.FindAsync(bookId);
             if(bookDetails != null)
             {
                 _db.LibraryBook.Remove(bookDetails);
-                await _db.SaveChangesAsync();
+                return await _db.SaveChangesAsync();
             }
+            return 0;
         }
 
         public async Task<LibraryBookDto> GetUniqueBookAsync(string name, int bookId=0)
