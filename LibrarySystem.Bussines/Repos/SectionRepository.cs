@@ -20,7 +20,7 @@ namespace LibrarySystem.Bussines.Repos
             _db = db;
         }
 
-        public async Task<SectionDto> CreateSection(SectionDto sectionDto)
+        public async Task<SectionDto> CreateSectionAsync(SectionDto sectionDto)
         {
             Section section = _mapper.Map<SectionDto, Section>(sectionDto);
             var addedSection = _db.Section.Add(section);
@@ -28,7 +28,7 @@ namespace LibrarySystem.Bussines.Repos
             return _mapper.Map<Section, SectionDto>(addedSection.Entity);
         }
 
-        public async Task<IEnumerable<SectionDto>> GetAllSections()
+        public async Task<IEnumerable<SectionDto>> GetAllSectionsAsync()
         {
             try
             {
@@ -41,7 +41,7 @@ namespace LibrarySystem.Bussines.Repos
             }
         }
 
-        public async Task<SectionDto> GetSection(int bookId)
+        public async Task<SectionDto> GetSectionAsync(int bookId)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace LibrarySystem.Bussines.Repos
             }
         }
 
-        public async Task<SectionDto> UpdateSection(int bookId, SectionDto sectionDto)
+        public async Task<SectionDto> UpdateSectionAsync(int bookId, SectionDto sectionDto)
         {
             try
             {

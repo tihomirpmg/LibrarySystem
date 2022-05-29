@@ -6,9 +6,9 @@ namespace LibrarySystem.Bussines.Repos
 {
     public interface ISectionRepository
     {
-        public Task<SectionDto> CreateSection(SectionDto sectionDto);
-        public Task<SectionDto> GetSection(int bookId);
-        public Task<SectionDto> UpdateSection(int bookId, SectionDto sectionDto);
-        public Task<IEnumerable<SectionDto>> GetAllSections();
+        public Task<SectionDto> CreateSectionAsync(SectionDto sectionDto);
+        public Task<SectionDto> GetSectionAsync(int bookId);
+        public Task<SectionDto> UpdateSectionAsync(int bookId, SectionDto sectionDto);
+        public Task<IEnumerable<SectionDto>> GetAllSectionsAsync();
     }
 }

@@ -20,7 +20,7 @@ namespace LibrarySystem.Bussines.Repos
             _db = db;
         }
 
-        public async Task<LibraryBookDto> CreateBook(LibraryBookDto libraryBookDto)
+        public async Task<LibraryBookDto> CreateBookAsync(LibraryBookDto libraryBookDto)
         {
             LibraryBook libraryBook = _mapper.Map<LibraryBookDto, LibraryBook>(libraryBookDto);
             var addedLibraryBook = _db.LibraryBook.Add(libraryBook);
@@ -28,7 +28,7 @@ namespace LibrarySystem.Bussines.Repos
             return _mapper.Map<LibraryBook, LibraryBookDto>(addedLibraryBook.Entity);
         }
 
-        public async Task<IEnumerable<LibraryBookDto>> GetAllBooks()
+        public async Task<IEnumerable<LibraryBookDto>> GetAllBooksAsync()
         {
             try
             {
@@ -41,7 +41,7 @@ namespace LibrarySystem.Bussines.Repos
             }
         }
 
-        public async Task<LibraryBookDto> GetBook(int bookId)
+        public async Task<LibraryBookDto> GetBookAsync(int bookId)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace LibrarySystem.Bussines.Repos
             }
         }
 
-        public async Task<LibraryBookDto> GetUniqueBook(string name, int bookId=0)
+        public async Task<LibraryBookDto> GetUniqueBookAsync(string name, int bookId=0)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace LibrarySystem.Bussines.Repos
             }
         }
 
-        public async Task<LibraryBookDto> UpdateBook(int bookId, LibraryBookDto libraryBookDto)
+        public async Task<LibraryBookDto> UpdateBookAsync(int bookId, LibraryBookDto libraryBookDto)
         {
             try
             {

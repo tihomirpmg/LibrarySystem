@@ -19,28 +19,28 @@ namespace LibrarySystem.Bussines.Repos
             _db = db;
         }
 
-        public async Task<int> CreateNewImage(ImageDto imageDto)
+        public async Task<int> CreateNewImageAsync(ImageDto imageDto)
         {
             var image = _mapper.Map<ImageDto, Images>(imageDto);
             await _db.Images.AddAsync(image);
             return await _db.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteImageByBookId(int bookId)
+        public async Task<int> DeleteImageByBookIdAsync(int bookId)
         {
             var imageList = await _db.Images.Where(x=>x.BookId==bookId).ToListAsync();
             _db.Images.RemoveRange(imageList);
             return await _db.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteImageByImageId(int imageId)
+        public async Task<int> DeleteImageByImageIdAsync(int imageId)
         {
             var image = await _db.Images.FindAsync(imageId);
             _db.Images.Remove(image);
             return await _db.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteImageByImageUrl(string imageUrl)
+        public async Task<int> DeleteImageByImageUrlAsync(string imageUrl)
         {
             var allImages = await _db.Images.FirstOrDefaultAsync
                              (x => x.BookImageUrl.ToLower() == imageUrl.ToLower());
@@ -48,7 +48,7 @@ namespace LibrarySystem.Bussines.Repos
             return await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ImageDto>> GetImages(int bookId)
+        public async Task<IEnumerable<ImageDto>> GetImagesAsync(int bookId)
         {
             return _mapper.Map<IEnumerable<Images>, IEnumerable<ImageDto>>(
             await _db.Images.Where(x => x.BookId == bookId).ToListAsync());
