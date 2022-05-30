@@ -7,5 +7,9 @@
         public int BookId { get; set; }
 
         public string BookImageUrl { get; set; }
+
+        public ImageDto()
+        {
+        }
     }
 }

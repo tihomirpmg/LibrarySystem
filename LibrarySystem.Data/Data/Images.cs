@@ -1,4 +1,5 @@
 ﻿using DataAcess.Data.Models;
+using LibrarySystem.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibrarySystem.Data.Data
@@ -13,5 +14,16 @@ namespace LibrarySystem.Data.Data
 
         [ForeignKey("BookId")]
         public virtual Title Title { get; set; }
+
+        public Images()
+        {
+        }
+
+        public Images(ImageDto imagesDto)
+        {
+            this.Id = imagesDto.Id;
+            this.BookId = imagesDto.BookId;
+            this.BookImageUrl = imagesDto.BookImageUrl;
+        }
     }
 }

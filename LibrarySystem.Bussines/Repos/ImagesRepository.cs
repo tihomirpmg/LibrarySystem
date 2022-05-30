@@ -12,16 +12,14 @@ namespace LibrarySystem.Bussines.Repos
     public class ImagesRepository:IImagesRepository
     {
         private readonly LibrarySystemDbContext _db;
-        private readonly IMapper _mapper;
-        public ImagesRepository(LibrarySystemDbContext db, IMapper mapper)
+        public ImagesRepository(LibrarySystemDbContext db)
         {
-            _mapper = mapper;
             _db = db;
         }
 
         public async Task<int> CreateNewImageAsync(ImageDto imageDto)
         {
-            var image = _mapper.Map<ImageDto, Images>(imageDto);
+            var image = new Images(imageDto);
             await _db.Images.AddAsync(image);
             return await _db.SaveChangesAsync();
         }
@@ -50,8 +48,8 @@ namespace LibrarySystem.Bussines.Repos
 
         public async Task<IEnumerable<ImageDto>> GetImagesAsync(int bookId)
         {
-            return _mapper.Map<IEnumerable<Images>, IEnumerable<ImageDto>>(
-            await _db.Images.Where(x => x.BookId == bookId).ToListAsync());
+            var image = await _db.Images.Where(x => x.BookId == bookId).ToListAsync();
+            return (IEnumerable<ImageDto>)image;
         }
     }
 }

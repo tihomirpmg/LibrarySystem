@@ -38,5 +38,35 @@ namespace LibrarySystem.Models
         public virtual ICollection<ImageDto> TitleImages { get; set; }
 
         public List<string> ImageUrls { get; set; }
+
+        public TitleDto()
+        {
+        }
+
+        public TitleDto(
+            int id, 
+            string name,
+            string description,
+            string writer,
+            int releaseYear,
+            int? isbn,
+            string type,
+            byte[] imageContent,
+            string imageName,
+            string publisher,
+            string section)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Description = description;
+            this.Writer = writer;
+            this.ReleaseYear = releaseYear;
+            this.Isbn = isbn;
+            this.Type = type;
+            this.ImageContent = imageContent;
+            this.ImageName = imageName;
+            this.Publisher = publisher;
+            this.Section = section;
+        }
     }
 }

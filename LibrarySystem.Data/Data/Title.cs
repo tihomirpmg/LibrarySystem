@@ -2,6 +2,7 @@
 namespace DataAcess.Data.Models
 {
     using LibrarySystem.Data.Data;
+    using LibrarySystem.Models;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -38,5 +39,24 @@ namespace DataAcess.Data.Models
         public string Section { get; set; }
 
         public virtual ICollection<Images> TitleImages { get; set; }
+
+        public Title()
+        {
+        }
+
+        public Title(TitleDto titleDto)
+        {
+            this.Id = titleDto.Id;
+            this.Name = titleDto.Name;
+            this.Description = titleDto.Description;
+            this.Writer = titleDto.Writer;
+            this.ReleaseYear = titleDto.ReleaseYear;
+            this.Isbn = titleDto.Isbn;
+            this.Type = titleDto.Type;
+            this.ImageContent = titleDto.ImageContent;
+            this.ImageName = titleDto.ImageName;
+            this.Publisher = titleDto.Publisher;
+            this.Section = titleDto.Section;
+        }
     }
 }

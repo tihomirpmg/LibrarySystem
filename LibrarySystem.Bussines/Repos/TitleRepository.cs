@@ -22,10 +22,12 @@ namespace LibrarySystem.Bussines.Repos
 
         public async Task<TitleDto> CreateBookAsync(TitleDto titleDto)
         {
-            Title title = _mapper.Map<TitleDto, Title>(titleDto);
+            Title title = new Title(titleDto);
             var addedTitle = _db.Title.Add(title);
             await _db.SaveChangesAsync();
-            return _mapper.Map<Title, TitleDto>(addedTitle.Entity);
+            return new TitleDto(addedTitle.Entity.Id, addedTitle.Entity.Name, addedTitle.Entity.Description, addedTitle.Entity.Writer, addedTitle.Entity.ReleaseYear,
+                addedTitle.Entity.Isbn, addedTitle.Entity.Type, addedTitle.Entity.ImageContent, addedTitle.Entity.ImageName,
+                addedTitle.Entity.Publisher, addedTitle.Entity.Section);
         }
 
         public async Task<IEnumerable<TitleDto>> GetAllBooksAsync()
