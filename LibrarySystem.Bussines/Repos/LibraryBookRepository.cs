@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace LibrarySystem.Bussines.Repos
 {
+    /// <summary>
+    /// LibraryBook Repository
+    /// </summary>
     public class LibraryBookRepository : ILibraryBookRepository
     {
         private readonly LibrarySystemDbContext _db;
@@ -19,7 +22,11 @@ namespace LibrarySystem.Bussines.Repos
             _mapper = mapper;
             _db = db;
         }
-
+        /// <summary>
+        /// This method create book in database
+        /// </summary>
+        /// <param name="libraryBookDto">Parameter</param>
+        /// <returns></returns>
         public async Task<LibraryBookDto> CreateBookAsync(LibraryBookDto libraryBookDto)
         {
             LibraryBook libraryBook = _mapper.Map<LibraryBookDto, LibraryBook>(libraryBookDto);
@@ -27,7 +34,10 @@ namespace LibrarySystem.Bussines.Repos
             await _db.SaveChangesAsync();
             return _mapper.Map<LibraryBook, LibraryBookDto>(addedLibraryBook.Entity);
         }
-
+        /// <summary>
+        /// This method show all books
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<LibraryBookDto>> GetAllBooksAsync()
         {
             try
@@ -40,7 +50,11 @@ namespace LibrarySystem.Bussines.Repos
                 throw new RepositoryException("Can not get all books.", ex);
             }
         }
-
+        /// <summary>
+        /// This method get book
+        /// </summary>
+        /// <param name="bookId">Parameter</param>
+        /// <returns></returns>
         public async Task<LibraryBookDto> GetBookAsync(int bookId)
         {
             try
@@ -54,6 +68,11 @@ namespace LibrarySystem.Bussines.Repos
                 throw new RepositoryException("Can not get this book", ex);
             }
         }
+        /// <summary>
+        /// This method delete book from database
+        /// </summary>
+        /// <param name="bookId">Parameter</param>
+        /// <returns></returns>
         public async Task<int> DeleteBookAsync(int bookId)
         {
             var bookDetails = await _db.LibraryBook.FindAsync(bookId);
@@ -64,7 +83,12 @@ namespace LibrarySystem.Bussines.Repos
             }
             return 0;
         }
-
+        /// <summary>
+        /// This method check if the book exist
+        /// </summary>
+        /// <param name="name">Parameter</param>
+        /// <param name="bookId">Parameter</param>
+        /// <returns></returns>
         public async Task<LibraryBookDto> GetUniqueBookAsync(string name, int bookId=0)
         {
             try
@@ -89,7 +113,12 @@ namespace LibrarySystem.Bussines.Repos
                 throw new RepositoryException("Book is not unique.", ex);
             }
         }
-
+        /// <summary>
+        /// This method update book in the database
+        /// </summary>
+        /// <param name="bookId">Parameter</param>
+        /// <param name="libraryBookDto">Parameter</param>
+        /// <returns></returns>
         public async Task<LibraryBookDto> UpdateBookAsync(int bookId, LibraryBookDto libraryBookDto)
         {
             try
