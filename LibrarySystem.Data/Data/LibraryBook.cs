@@ -1,5 +1,6 @@
 ﻿namespace DataAcess.Data.Models
 {
+    using LibrarySystem.Models;
     using System.ComponentModel.DataAnnotations;
     /// <summary>
     /// LibraryBook model class
@@ -31,5 +32,18 @@
         /// </summary>
         [Required]
         public string Stock { get; set; }
+
+        public LibraryBook()
+        {
+        }
+
+        public LibraryBook(LibraryBookDto libraryBookDto)
+        {
+            this.Id = libraryBookDto.Id;
+            this.Name = libraryBookDto.Name;
+            this.Condition = libraryBookDto.Condition;
+            this.Bearer = libraryBookDto.Bearer;
+            this.Stock = libraryBookDto.Stock;
+        }
     }
 }

@@ -14,30 +14,30 @@ namespace LibrarySystem.Bussines.Repos
         /// </summary>
         /// <param name="imageDto">ImageDto parameter</param>
         /// <returns></returns>
-        public Task<int> CreateNewImageAsync(ImageDto imageDto);
+        public int CreateNewImage(ImageDto imageDto);
         /// <summary>
         /// DeleteImageByImageIdAsync method
         /// </summary>
         /// <param name="imageId">Int parameter</param>
         /// <returns></returns>
-        public Task<int> DeleteImageByImageIdAsync(int imageId);
+        public int DeleteImageByImageId(int imageId);
         /// <summary>
         /// DeleteImageByBookIdAsync method
         /// </summary>
         /// <param name="bookId">Int parameter</param>
         /// <returns></returns>
-        public Task<int> DeleteImageByBookIdAsync(int bookId);
+        public int DeleteImageByBookId(int bookId);
         /// <summary>
         /// DeleteImageByImageUrlAsync method
         /// </summary>
         /// <param name="imageUrl">String imageUrl parameter</param>
         /// <returns></returns>
-        public Task<int> DeleteImageByImageUrlAsync(string imageUrl);
+        public int DeleteImageByImageUrl(string imageUrl);
         /// <summary>
         /// GetImagesAsync method
         /// </summary>
         /// <param name="bookId">Int parameter</param>
         /// <returns></returns>
-        public Task<IEnumerable<ImageDto>> GetImagesAsync(int bookId);
+        public IEnumerable<ImageDto> GetImages(int bookId);
     }
 }

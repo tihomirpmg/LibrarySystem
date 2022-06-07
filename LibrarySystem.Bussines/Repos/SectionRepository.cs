@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using DataAcess.Data.Models;
+﻿using DataAcess.Data.Models;
 using LibrarySystem.Bussines.Repos;
 using LibrarySystem.Data.Data;
 using LibrarySystem.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LibrarySystem.Bussines.Repos
@@ -16,10 +16,8 @@ namespace LibrarySystem.Bussines.Repos
     public class SectionRepository : ISectionRepository
     {
         private readonly LibrarySystemDbContext _db;
-        private readonly IMapper _mapper;
-        public SectionRepository(LibrarySystemDbContext db, IMapper mapper)
+        public SectionRepository(LibrarySystemDbContext db)
         {
-            _mapper = mapper;
             _db = db;
         }
         /// <summary>
@@ -27,22 +25,34 @@ namespace LibrarySystem.Bussines.Repos
         /// </summary>
         /// <param name="sectionDto">Parameter</param>
         /// <returns></returns>
-        public async Task<SectionDto> CreateSectionAsync(SectionDto sectionDto)
+        public SectionDto CreateSection(SectionDto sectionDto)
         {
-            Section section = _mapper.Map<SectionDto, Section>(sectionDto);
+            Section section = new Section(sectionDto);
             var addedSection = _db.Section.Add(section);
-            await _db.SaveChangesAsync();
-            return _mapper.Map<Section, SectionDto>(addedSection.Entity);
+            _db.SaveChanges();
+            return new SectionDto(
+                addedSection.Entity.Id,
+                addedSection.Entity.Name,
+                addedSection.Entity.Book,
+                addedSection.Entity.Description);
+
         }
         /// <summary>
         /// Get all sections
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<SectionDto>> GetAllSectionsAsync()
+        public IEnumerable<SectionDto> GetAllSections()
         {
             try
             {
-                IEnumerable<SectionDto> sectionDtos = _mapper.Map<IEnumerable<Section>, IEnumerable<SectionDto>>(_db.Section);
+                var sectionDtos = (from s in this._db.Section
+                                  select new SectionDto
+                                  {
+                                      Id = s.Id,
+                                      Name = s.Name,
+                                      Book = s.Book,
+                                      Description = s.Description,
+                                  }).ToList();
                 return sectionDtos;
             }
             catch (Exception ex)
@@ -55,13 +65,16 @@ namespace LibrarySystem.Bussines.Repos
         /// </summary>
         /// <param name="bookId">Parameter</param>
         /// <returns></returns>
-        public async Task<SectionDto> GetSectionAsync(int bookId)
+        public SectionDto GetSection(int bookId)
         {
             try
             {
-                SectionDto section = _mapper.Map<Section, SectionDto>(
-                await _db.Section.FirstOrDefaultAsync(x => x.Id == bookId));
-                return section;
+                var section = this._db.Section.Where(x => x.Id == bookId).FirstOrDefault();
+                return new SectionDto(
+                       section.Id,
+                       section.Name,
+                       section.Book,
+                       section.Description);
             }
             catch (Exception ex)
             {
@@ -74,17 +87,21 @@ namespace LibrarySystem.Bussines.Repos
         /// <param name="bookId">Parameter</param>
         /// <param name="sectionDto">Parameter</param>
         /// <returns></returns>
-        public async Task<SectionDto> UpdateSectionAsync(int bookId, SectionDto sectionDto)
+        public SectionDto UpdateSection(int bookId, SectionDto sectionDto)
         {
             try
             {
                 if (bookId == sectionDto.Id)
                 {
-                    Section bookDetails = await _db.Section.FindAsync(bookId);
-                    Section book = _mapper.Map<SectionDto, Section>(sectionDto, bookDetails);
+                    Section bookDetails = this._db.Section.Find(bookId);
+                    Section book = new Section(sectionDto);
                     var updatedBook = _db.Section.Update(book);
-                    await _db.SaveChangesAsync();
-                    return _mapper.Map<Section, SectionDto>(updatedBook.Entity);
+                    _db.SaveChanges();
+                    return new SectionDto(
+                               updatedBook.Entity.Id,
+                               updatedBook.Entity.Name,
+                               updatedBook.Entity.Book,
+                               updatedBook.Entity.Description);
                 }
                 else
                 {

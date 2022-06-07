@@ -17,11 +17,24 @@
         /// ImageDto BookImageUrl property
         /// </summary>
         public string BookImageUrl { get; set; }
+
+        
+
         /// <summary>
         /// Default constructor
         /// </summary>
         public ImageDto()
         {
+        }
+
+        public ImageDto(
+            int id, 
+            int bookId, 
+            string bookImageUrl)
+        {
+            Id = id;
+            BookId = bookId;
+            BookImageUrl = bookImageUrl;
         }
     }
 }

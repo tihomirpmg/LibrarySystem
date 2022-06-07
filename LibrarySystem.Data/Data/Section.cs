@@ -1,6 +1,7 @@
 ﻿#nullable disable
 namespace DataAcess.Data.Models
 {
+    using LibrarySystem.Models;
     using System.ComponentModel.DataAnnotations;
     /// <summary>
     /// Section model class
@@ -27,5 +28,17 @@ namespace DataAcess.Data.Models
         /// </summary>
         [Required]
         public string Description { get; set; }
+
+        public Section()
+        {
+        }
+
+        public Section(SectionDto sectionDto)       
+        {
+            this.Id = sectionDto.Id;
+            this.Name = sectionDto.Name;
+            this.Book = sectionDto.Book;
+            this.Description = sectionDto.Description;
+        }
     }
 }

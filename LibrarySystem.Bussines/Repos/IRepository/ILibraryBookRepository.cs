@@ -14,37 +14,37 @@ namespace LibrarySystem.Bussines.Repos
         /// </summary>
         /// <param name="libraryBookDto">LibraryBookDto parameter</param>
         /// <returns></returns>
-        public Task<LibraryBookDto> CreateBookAsync(LibraryBookDto libraryBookDto);
+        public LibraryBookDto CreateBook(LibraryBookDto libraryBookDto);
         /// <summary>
         /// UpdateBookAsync method
         /// </summary>
         /// <param name="bookId">Int parameter</param>
         /// <param name="libraryBookDto">LibraryBookDto parameter</param>
         /// <returns></returns>
-        public Task<LibraryBookDto> UpdateBookAsync(int bookId, LibraryBookDto libraryBookDto);
+        public LibraryBookDto UpdateBook(int bookId, LibraryBookDto libraryBookDto);
         /// <summary>
         /// GetBookAsync method
         /// </summary>
         /// <param name="bookId">Int parameter</param>
         /// <returns></returns>
-        public Task<LibraryBookDto> GetBookAsync(int bookId);
+        public LibraryBookDto GetBook(int bookId);
         /// <summary>
         /// DeleteBookAsync method
         /// </summary>
         /// <param name="bookId">Int parameter</param>
         /// <returns></returns>
-        public Task<int> DeleteBookAsync(int bookId);
+        public int DeleteBook(int bookId);
         /// <summary>
         /// GetAllBooksAsync method
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<LibraryBookDto>> GetAllBooksAsync();
+        public IEnumerable<LibraryBookDto> GetAllBooks();
         /// <summary>
         /// GetUniqueBookAsync method
         /// </summary>
         /// <param name="name">String parameter</param>
         /// <param name="bookId">Int parameter</param>
         /// <returns></returns>
-        public Task<LibraryBookDto> GetUniqueBookAsync(string name, int bookId = 0);
+        public LibraryBookDto GetUniqueBook(string name, int bookId = 0);
     }
 }

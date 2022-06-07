@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using DataAcess.Data.Models;
+﻿using DataAcess.Data.Models;
 using LibrarySystem.Bussines.Repos;
 using LibrarySystem.Data.Data;
 using LibrarySystem.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LibrarySystem.Bussines.Repos
@@ -16,10 +16,8 @@ namespace LibrarySystem.Bussines.Repos
     public class LibraryBookRepository : ILibraryBookRepository
     {
         private readonly LibrarySystemDbContext _db;
-        private readonly IMapper _mapper;
-        public LibraryBookRepository(LibrarySystemDbContext db, IMapper mapper)
+        public LibraryBookRepository(LibrarySystemDbContext db)
         {
-            _mapper = mapper;
             _db = db;
         }
         /// <summary>
@@ -27,22 +25,36 @@ namespace LibrarySystem.Bussines.Repos
         /// </summary>
         /// <param name="libraryBookDto">Parameter</param>
         /// <returns></returns>
-        public async Task<LibraryBookDto> CreateBookAsync(LibraryBookDto libraryBookDto)
+        public LibraryBookDto CreateBook(LibraryBookDto libraryBookDto)
         {
-            LibraryBook libraryBook = _mapper.Map<LibraryBookDto, LibraryBook>(libraryBookDto);
+            LibraryBook libraryBook = new LibraryBook(libraryBookDto);
             var addedLibraryBook = _db.LibraryBook.Add(libraryBook);
-            await _db.SaveChangesAsync();
-            return _mapper.Map<LibraryBook, LibraryBookDto>(addedLibraryBook.Entity);
+            _db.SaveChanges();
+            return new LibraryBookDto(
+                addedLibraryBook.Entity.Id,
+                addedLibraryBook.Entity.Name,
+                addedLibraryBook.Entity.Condition,
+                addedLibraryBook.Entity.Bearer,
+                addedLibraryBook.Entity.Stock);
         }
         /// <summary>
         /// This method show all books
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<LibraryBookDto>> GetAllBooksAsync()
+        public IEnumerable<LibraryBookDto> GetAllBooks()
         {
             try
             {
-                IEnumerable<LibraryBookDto> libraryBookDtos=_mapper.Map<IEnumerable<LibraryBook>, IEnumerable< LibraryBookDto >> (_db.LibraryBook);
+                var libraryBookDtos = (from s in this._db.LibraryBook
+                                       select new LibraryBookDto
+                                       {
+                                           Id = s.Id,
+                                           Name = s.Name,
+                                           Condition = s.Condition,
+                                           Bearer = s.Bearer,
+                                           Stock = s.Stock,
+                                       }).ToList();
+
                 return libraryBookDtos;
             }
             catch (Exception ex)
@@ -55,13 +67,17 @@ namespace LibrarySystem.Bussines.Repos
         /// </summary>
         /// <param name="bookId">Parameter</param>
         /// <returns></returns>
-        public async Task<LibraryBookDto> GetBookAsync(int bookId)
+        public LibraryBookDto GetBook(int bookId)
         {
             try
             {
-                LibraryBookDto libraryBook = _mapper.Map<LibraryBook,LibraryBookDto>(
-                    await _db.LibraryBook.FirstOrDefaultAsync(x => x.Id == bookId));
-                return libraryBook;
+                var libraryBook = this._db.LibraryBook.Where(x => x.Id == bookId).FirstOrDefault();
+                return new LibraryBookDto(
+                    libraryBook.Id,
+                    libraryBook.Name,
+                    libraryBook.Condition,
+                    libraryBook.Bearer,
+                    libraryBook.Stock);
             }
             catch (Exception ex)
             {
@@ -73,13 +89,13 @@ namespace LibrarySystem.Bussines.Repos
         /// </summary>
         /// <param name="bookId">Parameter</param>
         /// <returns></returns>
-        public async Task<int> DeleteBookAsync(int bookId)
+        public int DeleteBook(int bookId)
         {
-            var bookDetails = await _db.LibraryBook.FindAsync(bookId);
+            var bookDetails = _db.LibraryBook.Find(bookId);
             if(bookDetails != null)
             {
                 _db.LibraryBook.Remove(bookDetails);
-                return await _db.SaveChangesAsync();
+                return _db.SaveChanges();
             }
             return 0;
         }
@@ -89,22 +105,20 @@ namespace LibrarySystem.Bussines.Repos
         /// <param name="name">Parameter</param>
         /// <param name="bookId">Parameter</param>
         /// <returns></returns>
-        public async Task<LibraryBookDto> GetUniqueBookAsync(string name, int bookId=0)
+        public LibraryBookDto GetUniqueBook(string name, int bookId=0)
         {
             try
             {
                 if (bookId == 0)
                 {
-                    LibraryBookDto libraryBook = _mapper.Map<LibraryBook, LibraryBookDto>(
-                                        await _db.LibraryBook.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower()));
-                    return libraryBook;
+                    var libraryBook = this._db.LibraryBook.FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
+                    return new LibraryBookDto();
                 }
                 else
                 {
-                    LibraryBookDto libraryBook = _mapper.Map<LibraryBook, LibraryBookDto>(
-                                        await _db.LibraryBook.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower()
-                                        && x.Id != bookId));
-                    return libraryBook;
+                    var libraryBook = this._db.LibraryBook.FirstOrDefault(x => x.Name.ToLower() == name.ToLower()
+                                        && x.Id != bookId);
+                    return new LibraryBookDto();
                     
                 }
             }
@@ -119,18 +133,24 @@ namespace LibrarySystem.Bussines.Repos
         /// <param name="bookId">Parameter</param>
         /// <param name="libraryBookDto">Parameter</param>
         /// <returns></returns>
-        public async Task<LibraryBookDto> UpdateBookAsync(int bookId, LibraryBookDto libraryBookDto)
+        public LibraryBookDto UpdateBook(int bookId, LibraryBookDto libraryBookDto)
         {
             try
             {
                 if (bookId == libraryBookDto.Id)
                 {
                     //valid
-                    LibraryBook bookDetails = await _db.LibraryBook.FindAsync(bookId);
-                    LibraryBook book = _mapper.Map<LibraryBookDto, LibraryBook>(libraryBookDto, bookDetails);
+                    LibraryBook bookDetails = this._db.LibraryBook.Find(bookId);
+                    LibraryBook book = new LibraryBook(libraryBookDto);
                     var updatedBook = _db.LibraryBook.Update(book);
-                    await _db.SaveChangesAsync();
-                    return _mapper.Map<LibraryBook, LibraryBookDto>(updatedBook.Entity);
+                    _db.SaveChanges();
+                    return new LibraryBookDto(
+                        updatedBook.Entity.Id,
+                        updatedBook.Entity.Name,
+                        updatedBook.Entity.Condition,
+                        updatedBook.Entity.Bearer,
+                        updatedBook.Entity.Stock
+                        );
                 }
                 else
                 {

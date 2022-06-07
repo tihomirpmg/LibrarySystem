@@ -21,11 +21,27 @@ namespace LibrarySystem.Models
         /// SectionDto Books property
         /// </summary>
         [Required]
-        public string Books { get; set; }
+        public string Book { get; set; }
         /// <summary>
         /// SectionDto Description property
         /// </summary>
         [Required]
         public string Description { get; set; }
+
+        public SectionDto()
+        {
+        }
+
+        public SectionDto(
+            int id, 
+            string name, 
+            string book, 
+            string description)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Book = book;
+            this.Description = description;
+        }
     }
 }

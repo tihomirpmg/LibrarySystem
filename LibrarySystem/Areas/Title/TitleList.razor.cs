@@ -8,9 +8,9 @@ namespace LibrarySystem.Areas.Title
     {
         private IEnumerable<TitleDto> Titles { get; set; } = new List<TitleDto>();
 
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
-            Titles = await TitleRepository.GetAllBooksAsync();
+            Titles = TitleRepository.GetAllBooks();
         }
     }
 }

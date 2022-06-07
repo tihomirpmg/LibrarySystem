@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using DataAcess.Data.Models;
+﻿using DataAcess.Data.Models;
 using LibrarySystem.Bussines.Repos;
 using LibrarySystem.Data.Data;
 using LibrarySystem.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LibrarySystem.Bussines.Repos
@@ -16,10 +16,8 @@ namespace LibrarySystem.Bussines.Repos
     public class TitleRepository : ITitleRepository
     {
         private readonly LibrarySystemDbContext _db;
-        private readonly IMapper _mapper;
-        public TitleRepository(LibrarySystemDbContext db, IMapper mapper)
+        public TitleRepository(LibrarySystemDbContext db)
         {
-            _mapper = mapper;
             _db = db;
         }
         /// <summary>
@@ -27,11 +25,11 @@ namespace LibrarySystem.Bussines.Repos
         /// </summary>
         /// <param name="titleDto">Parameter</param>
         /// <returns></returns>
-        public async Task<TitleDto> CreateBookAsync(TitleDto titleDto)
+        public TitleDto CreateBook(TitleDto titleDto)
         {
             Title title = new Title(titleDto);
             var addedTitle = _db.Title.Add(title);
-            await _db.SaveChangesAsync();
+            _db.SaveChanges();
             return new TitleDto(addedTitle.Entity.Id, 
                 addedTitle.Entity.Name, 
                 addedTitle.Entity.Description, 
@@ -48,11 +46,26 @@ namespace LibrarySystem.Bussines.Repos
         /// Get all books
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<TitleDto>> GetAllBooksAsync()
+        public IEnumerable<TitleDto> GetAllBooks()
         {
             try
             {
-                IEnumerable<TitleDto> titleDtos = _mapper.Map<IEnumerable<Title>, IEnumerable<TitleDto>>(_db.Title.Include(x => x.TitleImages));
+                var titleDtos = (from s in this._db.Title
+                                   select new TitleDto
+                                   {
+                                       Id = s.Id,
+                                       Name = s.Name,
+                                       Description = s.Description,
+                                       Writer = s.Writer,
+                                       ReleaseYear = s.ReleaseYear,
+                                       Isbn = s.Isbn,
+                                       Type = s.Type,
+                                       ImageContent = s.ImageContent,
+                                       ImageName = s.ImageName,
+                                       Publisher = s.Publisher,
+                                       Section = s.Section,
+                                   }).ToList();
+                                       
                 return titleDtos;
             }
             catch (Exception ex)
@@ -65,13 +78,24 @@ namespace LibrarySystem.Bussines.Repos
         /// </summary>
         /// <param name="bookId">Parameter</param>
         /// <returns></returns>
-        public async Task<TitleDto> GetBookAsync(int bookId)
+        public TitleDto GetBook(int bookId)
         {
             try
             {
-                TitleDto title = _mapper.Map<Title, TitleDto>(
-                    await _db.Title.Include(x=>x.TitleImages).FirstOrDefaultAsync(x => x.Id == bookId));
-                return title;
+                var titles = this._db.Title.Include(x => x.TitleImages);
+                var title = titles.Where(x =>x.Id == bookId).FirstOrDefault();
+                return new TitleDto(
+                    title.Id,
+                    title.Name,
+                    title.Description,
+                    title.Writer,
+                    title.ReleaseYear,
+                    title.Isbn,
+                    title.Type,
+                    title.ImageContent,
+                    title.ImageName,
+                    title.Publisher,
+                    title.Section);
             }
             catch (Exception ex)
             {
@@ -83,13 +107,13 @@ namespace LibrarySystem.Bussines.Repos
         /// </summary>
         /// <param name="bookId">Parameter</param>
         /// <returns></returns>
-        public async Task<int> DeleteBookAsync(int bookId)
+        public int DeleteBook(int bookId)
         {
-            var bookDetails = await _db.Title.FindAsync(bookId);
+            var bookDetails = _db.Title.Find(bookId);
             if (bookDetails != null)
             {
                 _db.Title.Remove(bookDetails);
-                return await _db.SaveChangesAsync();
+                return _db.SaveChanges();
             }
             return 0;
         }
@@ -99,22 +123,19 @@ namespace LibrarySystem.Bussines.Repos
         /// <param name="name">Parameter</param>
         /// <param name="bookId">Parameter</param>
         /// <returns></returns>
-        public async Task<TitleDto> GetUniqueBookAsync(string name, int bookId = 0)
+        public TitleDto GetUniqueBook(string name, int bookId = 0)
         {
             try
             {
                 if (bookId == 0)
                 {
-                    TitleDto title = _mapper.Map<Title, TitleDto>(
-                                        await _db.Title.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower()));
-                    return title;
+                    var title = this._db.Title.FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
+                    return new TitleDto();
                 }
                 else
                 {
-                    TitleDto title = _mapper.Map<Title, TitleDto>(
-                                        await _db.Title.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower()
-                                        && x.Id != bookId));
-                    return title;
+                    var title = this._db.Title.FirstOrDefault(x => x.Name.ToLower() == name.ToLower()&& x.Id != bookId);
+                    return new TitleDto();
                 }
             }
             catch (Exception ex)
@@ -128,18 +149,18 @@ namespace LibrarySystem.Bussines.Repos
         /// <param name="bookId">Parameter</param>
         /// <param name="titleDto">Parameter</param>
         /// <returns></returns>
-        public async Task<TitleDto> UpdateBookAsync(int bookId, TitleDto titleDto)
+        public TitleDto UpdateBook(int bookId, TitleDto titleDto)
         {
             try
             {
                 if (bookId == titleDto.Id)
                 {
                     //valid
-                    Title bookDetails = await _db.Title.FindAsync(bookId);
-                    Title book = _mapper.Map<TitleDto, Title>(titleDto, bookDetails);
+                    Title bookDetails = this._db.Title.Find(bookId);
+                    Title book = new Title(titleDto);
                     var updatedBook = _db.Title.Update(book);
-                    await _db.SaveChangesAsync();
-                    return _mapper.Map<Title, TitleDto>(updatedBook.Entity);
+                    _db.SaveChanges();
+                    return new TitleDto();
                 }
                 else
                 {
