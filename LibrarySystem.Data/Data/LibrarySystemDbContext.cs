@@ -11,6 +11,10 @@ namespace LibrarySystem.Data.Data
     /// </summary>
     public class LibrarySystemDbContext : IdentityDbContext<IdentityUser>
     {
+        public LibrarySystemDbContext()
+        {
+        }
+
         /// <summary>
         /// Default constructor
         /// </summary>

@@ -10,28 +10,31 @@ namespace LibrarySystem.Bussines.Repos
     public interface ISectionRepository
     {
         /// <summary>
-        /// CreateSectionAsync method
+        /// Creates a section.
         /// </summary>
-        /// <param name="sectionDto">SectionDto parameter</param>
-        /// <returns></returns>
-        public SectionDto CreateSection(SectionDto sectionDto);
+        /// <param name="sectionDto">the section</param>
+        /// <returns>the newly created section</returns>
+        public Task<SectionDto> CreateSectionAsync(SectionDto sectionDto);
+
         /// <summary>
-        /// GetSectionAsync method
+        /// Retrieves a section with specified ID.
         /// </summary>
-        /// <param name="bookId">Int parameter</param>
-        /// <returns></returns>
-        public SectionDto GetSection(int bookId);
+        /// <param name="bookId">the book ID</param>
+        /// <returns>the section</returns>
+        public Task<SectionDto> GetSectionAsync(int bookId);
+
         /// <summary>
-        /// UpdateSectionAsync method
+        /// Updates section.
         /// </summary>
-        /// <param name="bookId">Int parameter</param>
-        /// <param name="sectionDto">SectionDto parameter</param>
-        /// <returns></returns>
-        public SectionDto UpdateSection(int bookId, SectionDto sectionDto);
+        /// <param name="bookId">the book ID</param>
+        /// <param name="sectionDto">>the section</param>
+        /// <returns>the updated section</returns>
+        public Task<SectionDto> UpdateSectionAsync(int bookId, SectionDto sectionDto);
+
         /// <summary>
-        /// GetAllSectionsAsync method
+        /// Retrieves all sections.
         /// </summary>
-        /// <returns></returns>
-        public IEnumerable<SectionDto> GetAllSections();
+        /// <returns>collection of sections</returns>
+        public Task<IEnumerable<SectionDto>> GetAllSectionsAsync();
     }
 }

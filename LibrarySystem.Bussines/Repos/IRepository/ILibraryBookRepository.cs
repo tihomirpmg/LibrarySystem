@@ -10,41 +10,46 @@ namespace LibrarySystem.Bussines.Repos
     public interface ILibraryBookRepository
     {
         /// <summary>
-        /// CreateBookAsync method
+        /// Creates a book.
         /// </summary>
-        /// <param name="libraryBookDto">LibraryBookDto parameter</param>
-        /// <returns></returns>
-        public LibraryBookDto CreateBook(LibraryBookDto libraryBookDto);
+        /// <param name="libraryBookDto">the book</param>
+        /// <returns>the newly created book</returns>
+        public Task<LibraryBookDto> CreateBookAsync(LibraryBookDto libraryBookDto);
+
         /// <summary>
-        /// UpdateBookAsync method
+        /// Updates book.
         /// </summary>
-        /// <param name="bookId">Int parameter</param>
-        /// <param name="libraryBookDto">LibraryBookDto parameter</param>
-        /// <returns></returns>
-        public LibraryBookDto UpdateBook(int bookId, LibraryBookDto libraryBookDto);
+        /// <param name="bookId">the book ID</param>
+        /// <param name="titleDto">>the book</param>
+        /// <returns>the updated book</returns>
+        public Task<LibraryBookDto> UpdateBookAsync(int bookId, LibraryBookDto libraryBookDto);
+
         /// <summary>
-        /// GetBookAsync method
+        /// Retrieves a book with specified ID.
         /// </summary>
-        /// <param name="bookId">Int parameter</param>
-        /// <returns></returns>
-        public LibraryBookDto GetBook(int bookId);
+        /// <param name="bookId">the book ID</param>
+        /// <returns>the book</returns>
+        public Task<LibraryBookDto> GetBookAsync(int bookId);
+
         /// <summary>
-        /// DeleteBookAsync method
+        /// Deletes book.
         /// </summary>
-        /// <param name="bookId">Int parameter</param>
-        /// <returns></returns>
-        public int DeleteBook(int bookId);
+        /// <param name="bookId">the book ID</param>
+        /// <returns>an empty result</returns>
+        public Task DeleteBookAsync(int bookId);
+
         /// <summary>
-        /// GetAllBooksAsync method
+        /// Retrieves all books.
         /// </summary>
-        /// <returns></returns>
-        public IEnumerable<LibraryBookDto> GetAllBooks();
+        /// <returns>collection of books</returns>
+        public Task<IEnumerable<LibraryBookDto>> GetAllBooksAsync();
+
         /// <summary>
-        /// GetUniqueBookAsync method
+        /// Check if the book is unique. 
         /// </summary>
-        /// <param name="name">String parameter</param>
-        /// <param name="bookId">Int parameter</param>
-        /// <returns></returns>
-        public LibraryBookDto GetUniqueBook(string name, int bookId = 0);
+        /// <param name="name">the book name</param>
+        /// <param name="bookId">the book ID</param>
+        /// <returns>the result</returns>
+        public Task<LibraryBookDto> GetUniqueBookAsync(string name, int bookId = 0);
     }
 }

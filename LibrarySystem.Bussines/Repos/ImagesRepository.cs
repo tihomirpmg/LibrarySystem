@@ -18,60 +18,38 @@ namespace LibrarySystem.Bussines.Repos
         {
             _db = db;
         }
-        /// <summary>
-        /// Add image in the database
-        /// </summary>
-        /// <param name="imageDto">Parameter</param>
-        /// <returns></returns>
-        public int CreateNewImage(ImageDto imageDto)
+
+        ///<inheritdoc/>
+        public async Task<int> CreateNewImageAsync(ImageDto imageDto)
         {
-            var image = new Images(imageDto);
-            _db.Images.Add(image);
-            return _db.SaveChanges();
+            Images image = Conversion.ConvertImage(imageDto);
+            await _db.Images.AddAsync(image);
+            return await _db.SaveChangesAsync();
         }
-        /// <summary>
-        /// Delete image by book id
-        /// </summary>
-        /// <param name="bookId">Parameter</param>
-        /// <returns></returns>
-        public int DeleteImageByBookId(int bookId)
+
+        ///<inheritdoc/>
+        public async Task<int> DeleteImageByBookIdAsync(int bookId)
         {
-            var imageList = _db.Images.Where(x=>x.BookId==bookId).ToList();
+            var imageList = await _db.Images.Where(x => x.BookId == bookId).ToListAsync();
             _db.Images.RemoveRange(imageList);
-            return _db.SaveChanges();
+            return await _db.SaveChangesAsync();
         }
-        /// <summary>
-        /// Delete image by image id
-        /// </summary>
-        /// <param name="imageId">Parameter</param>
-        /// <returns></returns>
-        public int DeleteImageByImageId(int imageId)
+
+        ///<inheritdoc/>
+        public async Task<int> DeleteImageByImageIdAsync(int imageId)
         {
-            var image = this._db.Images.Find(imageId);
-            this._db.Images.Remove(image);
-            return _db.SaveChanges();
+            var image = await _db.Images.FindAsync(imageId);
+            _db.Images.Remove(image);
+            return await _db.SaveChangesAsync();
         }
-        /// <summary>
-        /// Delete image by image url
-        /// </summary>
-        /// <param name="imageUrl">Parameter</param>
-        /// <returns></returns>
-        public int DeleteImageByImageUrl(string imageUrl)
+
+        ///<inheritdoc/>
+        public async Task<int> DeleteImageByImageUrlAsync(string imageUrl)
         {
-            var allImages = this._db.Images.FirstOrDefault
+            var allImages = await _db.Images.FirstOrDefaultAsync
                              (x => x.BookImageUrl.ToLower() == imageUrl.ToLower());
             _db.Images.Remove(allImages);
-            return _db.SaveChanges();
-        }
-        /// <summary>
-        /// Get image by book id
-        /// </summary>
-        /// <param name="bookId">Parameter</param>
-        /// <returns></returns>
-        public IEnumerable<ImageDto> GetImages(int bookId)
-        {
-            var image = _db.Images.Where(x => x.BookId == bookId).ToList();
-            return (IEnumerable<ImageDto>)image;
+            return await _db.SaveChangesAsync();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using DataAcess.Data.Models;
-using LibrarySystem.Bussines.Repos;
 using LibrarySystem.Data.Data;
 using LibrarySystem.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,126 +15,87 @@ namespace LibrarySystem.Bussines.Repos
     public class TitleRepository : ITitleRepository
     {
         private readonly LibrarySystemDbContext _db;
+
         public TitleRepository(LibrarySystemDbContext db)
         {
             _db = db;
         }
-        /// <summary>
-        /// Create book in the Title database
-        /// </summary>
-        /// <param name="titleDto">Parameter</param>
-        /// <returns></returns>
-        public TitleDto CreateBook(TitleDto titleDto)
+
+        ///<inheritdoc/>
+        public async Task<TitleDto> CreateBookAsync(TitleDto titleDto)
         {
-            Title title = new Title(titleDto);
+            Title title = Conversion.ConvertTitle(titleDto);
             var addedTitle = _db.Title.Add(title);
-            _db.SaveChanges();
-            return new TitleDto(addedTitle.Entity.Id, 
-                addedTitle.Entity.Name, 
-                addedTitle.Entity.Description, 
-                addedTitle.Entity.Writer, 
-                addedTitle.Entity.ReleaseYear,
-                addedTitle.Entity.Isbn, 
-                addedTitle.Entity.Type, 
-                addedTitle.Entity.ImageContent, 
-                addedTitle.Entity.ImageName,
-                addedTitle.Entity.Publisher, 
-                addedTitle.Entity.Section);
+            await _db.SaveChangesAsync();
+            var result = Conversion.ConvertTitle(addedTitle.Entity);
+
+            return result;
         }
-        /// <summary>
-        /// Get all books
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<TitleDto> GetAllBooks()
+
+        ///<inheritdoc/>
+        public async Task<IEnumerable<TitleDto>> GetAllBooksAsync()
         {
             try
             {
-                var titleDtos = (from s in this._db.Title
-                                   select new TitleDto
-                                   {
-                                       Id = s.Id,
-                                       Name = s.Name,
-                                       Description = s.Description,
-                                       Writer = s.Writer,
-                                       ReleaseYear = s.ReleaseYear,
-                                       Isbn = s.Isbn,
-                                       Type = s.Type,
-                                       ImageContent = s.ImageContent,
-                                       ImageName = s.ImageName,
-                                       Publisher = s.Publisher,
-                                       Section = s.Section,
-                                   }).ToList();
-                                       
-                return titleDtos;
+                IEnumerable<Title> titles = _db.Title.Include(x => x.TitleImages);
+                IEnumerable<TitleDto> result = titles.Select(Conversion.ConvertTitle);
+
+                return result;
             }
             catch (Exception ex)
             {
                 throw new RepositoryException("Can not get all books.", ex);
             }
         }
-        /// <summary>
-        /// Get book
-        /// </summary>
-        /// <param name="bookId">Parameter</param>
-        /// <returns></returns>
-        public TitleDto GetBook(int bookId)
+
+        ///<inheritdoc/>
+        public async Task<TitleDto> GetBookAsync(int bookId)
         {
             try
             {
-                var titles = this._db.Title.Include(x => x.TitleImages);
-                var title = titles.Where(x =>x.Id == bookId).FirstOrDefault();
-                return new TitleDto(
-                    title.Id,
-                    title.Name,
-                    title.Description,
-                    title.Writer,
-                    title.ReleaseYear,
-                    title.Isbn,
-                    title.Type,
-                    title.ImageContent,
-                    title.ImageName,
-                    title.Publisher,
-                    title.Section);
+                Title title = await _db.Title.Include(x => x.TitleImages).FirstOrDefaultAsync(x => x.Id == bookId);
+                TitleDto result = Conversion.ConvertTitle(title);
+
+                return result;
             }
             catch (Exception ex)
             {
                 throw new RepositoryException("Can not get this book", ex);
             }
         }
-        /// <summary>
-        /// Delete book from database
-        /// </summary>
-        /// <param name="bookId">Parameter</param>
-        /// <returns></returns>
-        public int DeleteBook(int bookId)
+
+        ///<inheritdoc/>
+        public async Task DeleteBookAsync(int bookId)
         {
-            var bookDetails = _db.Title.Find(bookId);
-            if (bookDetails != null)
+            var book = await _db.Title.FindAsync(bookId);
+
+            if (book is null)
             {
-                _db.Title.Remove(bookDetails);
-                return _db.SaveChanges();
+                //throw error
             }
-            return 0;
+
+            _db.Title.Remove(book);
+            await _db.SaveChangesAsync();
         }
-        /// <summary>
-        /// Check if the book exist
-        /// </summary>
-        /// <param name="name">Parameter</param>
-        /// <param name="bookId">Parameter</param>
-        /// <returns></returns>
-        public TitleDto GetUniqueBook(string name, int bookId = 0)
+
+        ///<inheritdoc/>
+        public async Task<TitleDto> GetUniqueBookAsync(string name, int bookId = 0)
         {
             try
             {
                 if (bookId == 0)
                 {
-                    var title = this._db.Title.FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
-                    return new TitleDto();
+                    Title title = await _db.Title.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+                    TitleDto result = Conversion.ConvertTitle(title);
+
+                    return result;
                 }
                 else
                 {
-                    var title = this._db.Title.FirstOrDefault(x => x.Name.ToLower() == name.ToLower()&& x.Id != bookId);
-                    return new TitleDto();
+                    Title title = await _db.Title.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower() && x.Id == bookId);
+                    TitleDto result = Conversion.ConvertTitle(title);
+
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -143,28 +103,23 @@ namespace LibrarySystem.Bussines.Repos
                 throw new RepositoryException("Book is not unique.", ex);
             }
         }
-        /// <summary>
-        /// Update book in the database
-        /// </summary>
-        /// <param name="bookId">Parameter</param>
-        /// <param name="titleDto">Parameter</param>
-        /// <returns></returns>
-        public TitleDto UpdateBook(int bookId, TitleDto titleDto)
+
+        ///<inheritdoc/>
+        public async Task<TitleDto> UpdateBookAsync(int bookId, TitleDto titleDto)
         {
             try
             {
                 if (bookId == titleDto.Id)
                 {
-                    //valid
-                    Title bookDetails = this._db.Title.Find(bookId);
-                    Title book = new Title(titleDto);
-                    var updatedBook = _db.Title.Update(book);
-                    _db.SaveChanges();
-                    return new TitleDto();
+                    Title title = await _db.Title.FindAsync(bookId);
+                    Title convertedTitle = Conversion.ConvertUpdate(title, titleDto);
+                    var updatedTitle = _db.Title.Update(convertedTitle);
+                    await _db.SaveChangesAsync();
+                    var result = Conversion.ConvertTitle(updatedTitle.Entity);
+                    return result;
                 }
                 else
                 {
-                    //invalid
                     return null;
                 }
             }

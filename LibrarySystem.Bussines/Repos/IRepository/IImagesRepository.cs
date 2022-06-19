@@ -10,34 +10,31 @@ namespace LibrarySystem.Bussines.Repos
     public interface IImagesRepository
     {
         /// <summary>
-        /// CreateNewImageAsync method
+        /// Creates a image.
         /// </summary>
-        /// <param name="imageDto">ImageDto parameter</param>
-        /// <returns></returns>
-        public int CreateNewImage(ImageDto imageDto);
+        /// <param name="imageDto">the image</param>
+        /// <returns>the newly created image</returns>
+        public Task<int> CreateNewImageAsync(ImageDto imageDto);
+
         /// <summary>
-        /// DeleteImageByImageIdAsync method
+        /// Deletes image by ID.
         /// </summary>
-        /// <param name="imageId">Int parameter</param>
+        /// <param name="imageId">the image ID</param>
         /// <returns></returns>
-        public int DeleteImageByImageId(int imageId);
+        public Task<int> DeleteImageByImageIdAsync(int imageId);
+
         /// <summary>
-        /// DeleteImageByBookIdAsync method
+        /// Deletes image by book ID.
         /// </summary>
-        /// <param name="bookId">Int parameter</param>
+        /// <param name="bookId">the book ID</param>
         /// <returns></returns>
-        public int DeleteImageByBookId(int bookId);
+        public Task<int> DeleteImageByBookIdAsync(int bookId);
+
         /// <summary>
-        /// DeleteImageByImageUrlAsync method
+        /// Deletes image by image url.
         /// </summary>
-        /// <param name="imageUrl">String imageUrl parameter</param>
+        /// <param name="imageUrl">the image url</param>
         /// <returns></returns>
-        public int DeleteImageByImageUrl(string imageUrl);
-        /// <summary>
-        /// GetImagesAsync method
-        /// </summary>
-        /// <param name="bookId">Int parameter</param>
-        /// <returns></returns>
-        public IEnumerable<ImageDto> GetImages(int bookId);
+        public Task<int> DeleteImageByImageUrlAsync(string imageUrl);
     }
 }

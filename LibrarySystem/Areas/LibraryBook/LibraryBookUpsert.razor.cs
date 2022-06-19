@@ -30,7 +30,7 @@ namespace LibrarySystem.Areas.LibraryBook
             if (Id != null)
             {
                 Title = "Update";
-                LibraryBookModel = LibraryBookRepository.GetBook(Id.Value);
+                LibraryBookModel = await LibraryBookRepository.GetBookAsync(Id.Value);
             }
             else
             {
@@ -38,23 +38,17 @@ namespace LibrarySystem.Areas.LibraryBook
             }
         }
 
-        private void HandleLibraryBookUpsert()
+        private async Task HandleLibraryBookUpsert()
         {
             try
             {
-                var bookDetailsByName = LibraryBookRepository.GetUniqueBook(LibraryBookModel.Name, LibraryBookModel.Id);
-                if (bookDetailsByName != null)
-                {
-                    return;
-                }
-
                 if (LibraryBookModel.Id != 0 && Title == "Update")
                 {
-                    var updateBookResult = LibraryBookRepository.UpdateBook(LibraryBookModel.Id, LibraryBookModel);
+                    var updateBookResult = await LibraryBookRepository.UpdateBookAsync(LibraryBookModel.Id, LibraryBookModel);
                 }
                 else
                 {
-                    var createdResult = LibraryBookRepository.CreateBook(LibraryBookModel);
+                    var createdResult = await LibraryBookRepository.CreateBookAsync(LibraryBookModel);
                 }
             }
             catch (RepositoryException ex)

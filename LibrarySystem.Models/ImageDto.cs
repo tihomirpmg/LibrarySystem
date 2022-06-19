@@ -18,23 +18,13 @@
         /// </summary>
         public string BookImageUrl { get; set; }
 
-        
+        public virtual TitleDto Title { get; set; }
 
         /// <summary>
         /// Default constructor
         /// </summary>
         public ImageDto()
         {
-        }
-
-        public ImageDto(
-            int id, 
-            int bookId, 
-            string bookImageUrl)
-        {
-            Id = id;
-            BookId = bookId;
-            BookImageUrl = bookImageUrl;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using DataAcess.Data.Models;
-using LibrarySystem.Bussines.Repos;
 using LibrarySystem.Data.Data;
 using LibrarySystem.Models;
 using Microsoft.EntityFrameworkCore;
@@ -20,106 +19,81 @@ namespace LibrarySystem.Bussines.Repos
         {
             _db = db;
         }
-        /// <summary>
-        /// This method create book in database
-        /// </summary>
-        /// <param name="libraryBookDto">Parameter</param>
-        /// <returns></returns>
-        public LibraryBookDto CreateBook(LibraryBookDto libraryBookDto)
+
+        ///<inheritdoc/>
+        public async Task<LibraryBookDto> CreateBookAsync(LibraryBookDto libraryBookDto)
         {
-            LibraryBook libraryBook = new LibraryBook(libraryBookDto);
+            LibraryBook libraryBook = Conversion.ConvertBook(libraryBookDto);
             var addedLibraryBook = _db.LibraryBook.Add(libraryBook);
-            _db.SaveChanges();
-            return new LibraryBookDto(
-                addedLibraryBook.Entity.Id,
-                addedLibraryBook.Entity.Name,
-                addedLibraryBook.Entity.Condition,
-                addedLibraryBook.Entity.Bearer,
-                addedLibraryBook.Entity.Stock);
+            await _db.SaveChangesAsync();
+            var result = Conversion.ConvertBook(addedLibraryBook.Entity);
+
+            return result;
         }
-        /// <summary>
-        /// This method show all books
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<LibraryBookDto> GetAllBooks()
+
+        ///<inheritdoc/>
+        public async Task<IEnumerable<LibraryBookDto>> GetAllBooksAsync()
         {
             try
             {
-                var libraryBookDtos = (from s in this._db.LibraryBook
-                                       select new LibraryBookDto
-                                       {
-                                           Id = s.Id,
-                                           Name = s.Name,
-                                           Condition = s.Condition,
-                                           Bearer = s.Bearer,
-                                           Stock = s.Stock,
-                                       }).ToList();
+                IEnumerable<LibraryBook> books = _db.LibraryBook;
+                IEnumerable<LibraryBookDto> result = books.Select(Conversion.ConvertBook);
 
-                return libraryBookDtos;
+                return result;
             }
             catch (Exception ex)
             {
                 throw new RepositoryException("Can not get all books.", ex);
             }
         }
-        /// <summary>
-        /// This method get book
-        /// </summary>
-        /// <param name="bookId">Parameter</param>
-        /// <returns></returns>
-        public LibraryBookDto GetBook(int bookId)
+
+        ///<inheritdoc/>
+        public async Task<LibraryBookDto> GetBookAsync(int bookId)
         {
             try
             {
-                var libraryBook = this._db.LibraryBook.Where(x => x.Id == bookId).FirstOrDefault();
-                return new LibraryBookDto(
-                    libraryBook.Id,
-                    libraryBook.Name,
-                    libraryBook.Condition,
-                    libraryBook.Bearer,
-                    libraryBook.Stock);
+                LibraryBook libraryBook = await _db.LibraryBook.FirstOrDefaultAsync(x => x.Id == bookId);
+                LibraryBookDto result = Conversion.ConvertBook(libraryBook);
+                return result;
             }
             catch (Exception ex)
             {
                 throw new RepositoryException("Can not get this book", ex);
             }
         }
-        /// <summary>
-        /// This method delete book from database
-        /// </summary>
-        /// <param name="bookId">Parameter</param>
-        /// <returns></returns>
-        public int DeleteBook(int bookId)
+
+        ///<inheritdoc/>
+        public async Task DeleteBookAsync(int bookId)
         {
-            var bookDetails = _db.LibraryBook.Find(bookId);
-            if(bookDetails != null)
+            var book = await _db.LibraryBook.FindAsync(bookId);
+            if (book is null)
             {
-                _db.LibraryBook.Remove(bookDetails);
-                return _db.SaveChanges();
+                //throw error
             }
-            return 0;
+            _db.LibraryBook.Remove(book);
+            await _db.SaveChangesAsync();
         }
-        /// <summary>
-        /// This method check if the book exist
-        /// </summary>
-        /// <param name="name">Parameter</param>
-        /// <param name="bookId">Parameter</param>
-        /// <returns></returns>
-        public LibraryBookDto GetUniqueBook(string name, int bookId=0)
+
+        ///<inheritdoc/>
+        public async Task<LibraryBookDto> GetUniqueBookAsync(string name, int bookId = 0)
         {
             try
             {
                 if (bookId == 0)
                 {
-                    var libraryBook = this._db.LibraryBook.FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
-                    return new LibraryBookDto();
+                    LibraryBook book = await _db.LibraryBook.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+                    LibraryBookDto result = Conversion.ConvertBook(book);
+
+                    return result;
                 }
                 else
                 {
-                    var libraryBook = this._db.LibraryBook.FirstOrDefault(x => x.Name.ToLower() == name.ToLower()
-                                        && x.Id != bookId);
-                    return new LibraryBookDto();
-                    
+                    LibraryBook book = await _db.LibraryBook.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower()
+                                        && x.Id == bookId);
+                    LibraryBookDto result = Conversion.ConvertBook(book);
+
+                    return result;
+
                 }
             }
             catch (Exception ex)
@@ -127,34 +101,23 @@ namespace LibrarySystem.Bussines.Repos
                 throw new RepositoryException("Book is not unique.", ex);
             }
         }
-        /// <summary>
-        /// This method update book in the database
-        /// </summary>
-        /// <param name="bookId">Parameter</param>
-        /// <param name="libraryBookDto">Parameter</param>
-        /// <returns></returns>
-        public LibraryBookDto UpdateBook(int bookId, LibraryBookDto libraryBookDto)
+
+        ///<inheritdoc/>
+        public async Task<LibraryBookDto> UpdateBookAsync(int bookId, LibraryBookDto libraryBookDto)
         {
             try
             {
                 if (bookId == libraryBookDto.Id)
                 {
-                    //valid
-                    LibraryBook bookDetails = this._db.LibraryBook.Find(bookId);
-                    LibraryBook book = new LibraryBook(libraryBookDto);
-                    var updatedBook = _db.LibraryBook.Update(book);
-                    _db.SaveChanges();
-                    return new LibraryBookDto(
-                        updatedBook.Entity.Id,
-                        updatedBook.Entity.Name,
-                        updatedBook.Entity.Condition,
-                        updatedBook.Entity.Bearer,
-                        updatedBook.Entity.Stock
-                        );
+                    LibraryBook book = await _db.LibraryBook.FindAsync(bookId);
+                    LibraryBook convertedBook = Conversion.ConvertUpdate(book,libraryBookDto);
+                    var updatedBook = _db.LibraryBook.Update(convertedBook);
+                    await _db.SaveChangesAsync();
+                    var result = Conversion.ConvertBook(updatedBook.Entity);
+                    return result;
                 }
                 else
                 {
-                    //invalid
                     return null;
                 }
             }

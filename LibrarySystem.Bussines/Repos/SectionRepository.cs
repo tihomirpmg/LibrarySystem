@@ -20,88 +20,62 @@ namespace LibrarySystem.Bussines.Repos
         {
             _db = db;
         }
-        /// <summary>
-        /// This method create section
-        /// </summary>
-        /// <param name="sectionDto">Parameter</param>
-        /// <returns></returns>
-        public SectionDto CreateSection(SectionDto sectionDto)
-        {
-            Section section = new Section(sectionDto);
-            var addedSection = _db.Section.Add(section);
-            _db.SaveChanges();
-            return new SectionDto(
-                addedSection.Entity.Id,
-                addedSection.Entity.Name,
-                addedSection.Entity.Book,
-                addedSection.Entity.Description);
 
+        ///<inheritdoc/>
+        public async Task<SectionDto> CreateSectionAsync(SectionDto sectionDto)
+        {
+            Section section = Conversion.ConvertSection(sectionDto);
+            var addedSection = _db.Section.Add(section);
+            await _db.SaveChangesAsync();
+            var result = Conversion.ConvertSection(addedSection.Entity);
+            return result;
         }
-        /// <summary>
-        /// Get all sections
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<SectionDto> GetAllSections()
+
+        ///<inheritdoc/>
+        public async Task<IEnumerable<SectionDto>> GetAllSectionsAsync()
         {
             try
             {
-                var sectionDtos = (from s in this._db.Section
-                                  select new SectionDto
-                                  {
-                                      Id = s.Id,
-                                      Name = s.Name,
-                                      Book = s.Book,
-                                      Description = s.Description,
-                                  }).ToList();
-                return sectionDtos;
+                IEnumerable<Section> sections = _db.Section;
+                IEnumerable<SectionDto> result = sections.Select(Conversion.ConvertSection);
+
+                return result;
             }
             catch (Exception ex)
             {
                 throw new RepositoryException("Can not get the sections", ex);
             }
         }
-        /// <summary>
-        /// This method check if the section exist to use it
-        /// </summary>
-        /// <param name="bookId">Parameter</param>
-        /// <returns></returns>
-        public SectionDto GetSection(int bookId)
+
+        ///<inheritdoc/>
+        public async Task<SectionDto> GetSectionAsync(int bookId)
         {
             try
             {
-                var section = this._db.Section.Where(x => x.Id == bookId).FirstOrDefault();
-                return new SectionDto(
-                       section.Id,
-                       section.Name,
-                       section.Book,
-                       section.Description);
+                Section section = await _db.Section.FirstOrDefaultAsync(x => x.Id == bookId);
+                SectionDto result = Conversion.ConvertSection(section);
+
+                return result;
             }
             catch (Exception ex)
             {
                 throw new RepositoryException("Section does not exist.", ex);
             }
         }
-        /// <summary>
-        /// This method is for the update button in sections
-        /// </summary>
-        /// <param name="bookId">Parameter</param>
-        /// <param name="sectionDto">Parameter</param>
-        /// <returns></returns>
-        public SectionDto UpdateSection(int bookId, SectionDto sectionDto)
+
+        ///<inheritdoc/>
+        public async Task<SectionDto> UpdateSectionAsync(int bookId, SectionDto sectionDto)
         {
             try
             {
                 if (bookId == sectionDto.Id)
                 {
-                    Section bookDetails = this._db.Section.Find(bookId);
-                    Section book = new Section(sectionDto);
-                    var updatedBook = _db.Section.Update(book);
-                    _db.SaveChanges();
-                    return new SectionDto(
-                               updatedBook.Entity.Id,
-                               updatedBook.Entity.Name,
-                               updatedBook.Entity.Book,
-                               updatedBook.Entity.Description);
+                    Section details = await _db.Section.FindAsync(bookId);
+                    SectionDto book = Conversion.ConvertSection(details);
+                    var updatedBook = _db.Section.Update(details);
+                    await _db.SaveChangesAsync();
+                    var result = Conversion.ConvertSection(updatedBook.Entity);
+                    return result;
                 }
                 else
                 {

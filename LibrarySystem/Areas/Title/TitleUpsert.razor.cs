@@ -37,7 +37,7 @@ namespace LibrarySystem.Areas.Title
             if (Id != null)
             {
                 Create = "Update";
-                TitleModel = TitleRepository.GetBook(Id.Value);
+                TitleModel = await TitleRepository.GetBookAsync(Id.Value);
                 if (TitleModel?.TitleImages != null)
                 {
                     TitleModel.ImageUrls = TitleModel.TitleImages.Select(u => u.BookImageUrl).ToList();
@@ -53,15 +53,9 @@ namespace LibrarySystem.Areas.Title
         {
             try
             {
-                var bookDetailsByName = TitleRepository.GetUniqueBook(TitleModel.Name, TitleModel.Id);
-                if (bookDetailsByName != null)
-                {
-                    return;
-                }
-
                 if (TitleModel.Id != 0 && Create == "Update")
                 {
-                    var updateBookResult = TitleRepository.UpdateBook(TitleModel.Id, TitleModel);
+                    var updateBookResult = await TitleRepository.UpdateBookAsync(TitleModel.Id, TitleModel);
                     if (TitleModel.ImageUrls != null && TitleModel.ImageUrls.Any())
                     {
                         if (DeleteImageNames != null && DeleteImageNames.Any())
@@ -70,7 +64,7 @@ namespace LibrarySystem.Areas.Title
                             {
                                 var imageName = deletedImageName.Replace($"BookImages/", "");
                                 var result = FileUpload.DeleteFile(imageName);
-                                ImagesRepository.DeleteImageByImageUrl(deletedImageName);
+                                await ImagesRepository.DeleteImageByImageUrlAsync(deletedImageName);
                             }
                         }
 
@@ -79,7 +73,7 @@ namespace LibrarySystem.Areas.Title
                 }
                 else
                 {
-                    var createdResult = TitleRepository.CreateBook(TitleModel);
+                    var createdResult = await TitleRepository.CreateBookAsync(TitleModel);
                     await AddTitleImage(createdResult);
                 }
             }
@@ -143,7 +137,7 @@ namespace LibrarySystem.Areas.Title
                         BookId = bookDetails.Id,
                         BookImageUrl = imageUrl
                     };
-                    ImagesRepository.CreateNewImage(TitleImage);
+                    await ImagesRepository.CreateNewImageAsync(TitleImage);
                 }
             }
         }

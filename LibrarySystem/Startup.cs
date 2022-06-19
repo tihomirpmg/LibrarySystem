@@ -36,7 +36,6 @@ namespace LibrarySystem
                 .AddEntityFrameworkStores<LibrarySystemDbContext>().AddDefaultTokenProviders()
                 .AddDefaultUI();
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ILibraryBookRepository, LibraryBookRepository>();
             services.AddScoped<ITitleRepository, TitleRepository>();
             services.AddScoped<IDbInitializer, DbInitializer>();

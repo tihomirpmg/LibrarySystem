@@ -8,9 +8,9 @@ namespace LibrarySystem.Areas.LibraryBook
     {
         private IEnumerable<LibraryBookDto> LibraryBooks { get; set; } = new List<LibraryBookDto>();
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            LibraryBooks = LibraryBookRepository.GetAllBooks();
+            LibraryBooks = await LibraryBookRepository.GetAllBooksAsync();
         }
     }
 }

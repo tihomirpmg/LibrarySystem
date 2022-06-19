@@ -1,5 +1,7 @@
 ﻿using DataAcess.Data.Models;
 using LibrarySystem.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibrarySystem.Data.Data
