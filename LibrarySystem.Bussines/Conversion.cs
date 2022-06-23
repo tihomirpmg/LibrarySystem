@@ -4,7 +4,7 @@ using LibrarySystem.Models;
 using System;
 using System.Linq;
 
-namespace LibrarySystem.Bussines
+namespace LibrarySystem.Business
 {
     /// <summary>
     /// Represent a class for converting between Data and DTO data types.
@@ -174,18 +174,18 @@ namespace LibrarySystem.Bussines
         internal static Title ConvertUpdate(Title title, TitleDto bookDetails)
         {
 
-                title.Id = bookDetails.Id;
-                title.Description = bookDetails.Description;
-                title.ImageContent = bookDetails.ImageContent;
-                title.ImageName = bookDetails.ImageName;
-                title.Isbn = bookDetails.Isbn;
-                title.Name = bookDetails.Name;
-                title.Publisher = bookDetails.Publisher;
-                title.ReleaseYear = bookDetails.ReleaseYear;
-                title.Section = bookDetails.Section;
-                title.TitleImages = bookDetails.TitleImages.Select(ConvertImage).ToList();
-                title.Type = bookDetails.Type;
-                title.Writer = bookDetails.Writer;
+            title.Id = bookDetails.Id;
+            title.Description = bookDetails.Description;
+            title.ImageContent = bookDetails.ImageContent;
+            title.ImageName = bookDetails.ImageName;
+            title.Isbn = bookDetails.Isbn;
+            title.Name = bookDetails.Name;
+            title.Publisher = bookDetails.Publisher;
+            title.ReleaseYear = bookDetails.ReleaseYear;
+            title.Section = bookDetails.Section;
+            title.TitleImages = bookDetails.TitleImages.Select(ConvertImage).ToList();
+            title.Type = bookDetails.Type;
+            title.Writer = bookDetails.Writer;
 
             return title;
         }

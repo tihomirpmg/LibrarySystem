@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LibrarySystem.Bussines.Repos
+namespace LibrarySystem.Business.Repos
 {
     /// <summary>
     /// LibraryBook Repository
@@ -110,7 +110,7 @@ namespace LibrarySystem.Bussines.Repos
                 if (bookId == libraryBookDto.Id)
                 {
                     LibraryBook book = await _db.LibraryBook.FindAsync(bookId);
-                    LibraryBook convertedBook = Conversion.ConvertUpdate(book,libraryBookDto);
+                    LibraryBook convertedBook = Conversion.ConvertUpdate(book, libraryBookDto);
                     var updatedBook = _db.LibraryBook.Update(convertedBook);
                     await _db.SaveChangesAsync();
                     var result = Conversion.ConvertBook(updatedBook.Entity);

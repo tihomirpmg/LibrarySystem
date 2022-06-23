@@ -1,17 +1,15 @@
-﻿using LibrarySystem.Bussines.Repos;
-using LibrarySystem.Data.Data;
+﻿using LibrarySystem.Data.Data;
 using LibrarySystem.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LibrarySystem.Bussines.Repos
+namespace LibrarySystem.Business.Repos
 {
     /// <summary>
     /// Images Repository class
     /// </summary>
-    public class ImagesRepository:IImagesRepository
+    public class ImagesRepository : IImagesRepository
     {
         private readonly LibrarySystemDbContext _db;
         public ImagesRepository(LibrarySystemDbContext db)

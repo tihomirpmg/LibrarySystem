@@ -30,7 +30,7 @@ namespace LibrarySystem.Service
                     _db.Database.Migrate();
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
@@ -38,14 +38,14 @@ namespace LibrarySystem.Service
 
             _roleManager.CreateAsync(new IdentityRole(RoleNames.Admin)).GetAwaiter().GetResult();
             _roleManager.CreateAsync(new IdentityRole(RoleNames.Librarian)).GetAwaiter().GetResult();
-            _roleManager.CreateAsync(new IdentityRole(RoleNames.Reader)).GetAwaiter().GetResult(); 
+            _roleManager.CreateAsync(new IdentityRole(RoleNames.Reader)).GetAwaiter().GetResult();
 
             _userManager.CreateAsync(new IdentityUser
             {
                 UserName = "admin@gmail.com",
                 Email = "admin@gmail.com",
                 EmailConfirmed = true
-            },"Admin123*").GetAwaiter().GetResult();
+            }, "Admin123*").GetAwaiter().GetResult();
 
             IdentityUser user = _db.Users.FirstOrDefault(u => u.Email == "admin@gmail.com");
             _userManager.AddToRoleAsync(user, RoleNames.Admin).GetAwaiter().GetResult();

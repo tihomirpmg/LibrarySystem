@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace LibrarySystem.Bussines.Repos
+namespace LibrarySystem.Business.Repos
 {
     /// <summary>
     /// Interface LibraryBookRepository class

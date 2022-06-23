@@ -27,7 +27,7 @@ namespace LibrarySystem.Service
                 }
                 return false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -38,7 +38,7 @@ namespace LibrarySystem.Service
             try
             {
                 FileInfo fileInfo = new FileInfo(file.Name);
-                var fileName= Guid.NewGuid().ToString() + fileInfo.Extension;
+                var fileName = Guid.NewGuid().ToString() + fileInfo.Extension;
                 var folderDirectory = $"{_webHostEnvironment.WebRootPath}\\BookImages";
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "BookImages", fileName);
 
@@ -50,14 +50,14 @@ namespace LibrarySystem.Service
                     Directory.CreateDirectory(folderDirectory);
                 }
 
-                await using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write)) 
+                await using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
                 {
                     memoryStream.WriteTo(fs);
                 }
                 var fullPath = $"BookImages/{fileName}";
                 return fullPath;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

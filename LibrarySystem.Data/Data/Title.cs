@@ -62,7 +62,7 @@ namespace DataAcess.Data.Models
         /// </summary>
         [Required]
         public string Section { get; set; }
-        
+
         public virtual ICollection<Images> TitleImages { get; set; }
         /// <summary>
         /// Title default constructor

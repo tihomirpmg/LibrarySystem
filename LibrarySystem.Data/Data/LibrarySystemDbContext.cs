@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using DataAcess.Data.Models;
+﻿using DataAcess.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +18,7 @@ namespace LibrarySystem.Data.Data
         /// Default constructor
         /// </summary>
         /// <param name="options">Options parameter</param>
-        public LibrarySystemDbContext(DbContextOptions<LibrarySystemDbContext> options) 
+        public LibrarySystemDbContext(DbContextOptions<LibrarySystemDbContext> options)
             : base(options)
         {
 

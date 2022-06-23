@@ -31,7 +31,7 @@ namespace LibrarySystem.Models
         /// <summary>
         /// TitleDto ReleaseYear property
         /// </summary>
-        [Required(ErrorMessage ="Please enter book released year")]
+        [Required(ErrorMessage = "Please enter book released year")]
         public int ReleaseYear { get; set; }
         /// <summary>
         /// TitleDto ISBN property
@@ -60,7 +60,7 @@ namespace LibrarySystem.Models
         /// </summary>
         [Required(ErrorMessage = "Please enter book section")]
         public string Section { get; set; }
-        
+
         public virtual ICollection<ImageDto> TitleImages { get; set; }
         /// <summary>
         /// TitleDto ImageUrls property
@@ -87,7 +87,7 @@ namespace LibrarySystem.Models
         /// <param name="publisher">Publisher property</param>
         /// <param name="section">Section property</param>
         public TitleDto(
-            int id, 
+            int id,
             string name,
             string description,
             string writer,

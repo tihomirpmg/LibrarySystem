@@ -38,10 +38,10 @@ namespace LibrarySystem.Models
         }
 
         public LibraryBookDto(
-            int id, 
-            string name, 
-            string condition, 
-            string bearer, 
+            int id,
+            string name,
+            string condition,
+            string bearer,
             string stock)
         {
             this.Id = id;

@@ -1,17 +1,16 @@
+using LibrarySystem.Areas.Identity;
+using LibrarySystem.Business.Repos;
+using LibrarySystem.Data.Data;
+using LibrarySystem.Service;
+using LibrarySystem.Service.IService;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using LibrarySystem.Data.Data;
-using Microsoft.EntityFrameworkCore;
-using LibrarySystem.Bussines.Repos;
-using LibrarySystem.Service;
-using LibrarySystem.Service.IService;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Components.Authorization;
-using LibrarySystem.Areas.Identity;
 
 namespace LibrarySystem
 {

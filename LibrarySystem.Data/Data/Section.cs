@@ -33,7 +33,7 @@ namespace DataAcess.Data.Models
         {
         }
 
-        public Section(SectionDto sectionDto)       
+        public Section(SectionDto sectionDto)
         {
             this.Id = sectionDto.Id;
             this.Name = sectionDto.Name;

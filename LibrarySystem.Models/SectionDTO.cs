@@ -33,9 +33,9 @@ namespace LibrarySystem.Models
         }
 
         public SectionDto(
-            int id, 
-            string name, 
-            string book, 
+            int id,
+            string name,
+            string book,
             string description)
         {
             this.Id = id;

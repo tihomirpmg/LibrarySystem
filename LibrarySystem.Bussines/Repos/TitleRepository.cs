@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LibrarySystem.Bussines.Repos
+namespace LibrarySystem.Business.Repos
 {
     /// <summary>
     /// Title repository class

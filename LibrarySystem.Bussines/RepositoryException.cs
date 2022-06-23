@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LibrarySystem.Bussines
+namespace LibrarySystem.Business
 {
     /// <summary>
     /// Represents an error that occurred in WEB.
@@ -18,7 +18,7 @@ namespace LibrarySystem.Bussines
         /// Initialize a new instance of the <see cref="RepositoryException"/> class with a specified error message.
         /// </summary>
         /// <param name="message">the error message</param>
-        public RepositoryException(string message) 
+        public RepositoryException(string message)
             : base(message)
         {
         }
@@ -28,7 +28,7 @@ namespace LibrarySystem.Bussines
         /// </summary>
         /// <param name="message">the error message</param>
         /// <param name="innerException">the exception that is the cause of the current exception</param>
-        public RepositoryException(string message, Exception innerException) 
+        public RepositoryException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
