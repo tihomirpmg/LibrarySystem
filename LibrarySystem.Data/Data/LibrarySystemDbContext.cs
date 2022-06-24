@@ -27,22 +27,27 @@ namespace LibrarySystem.Data.Data
         /// LibraryBook property
         /// </summary>
         public DbSet<LibraryBook> LibraryBook { get; set; }
+
         /// <summary>
         /// User property
         /// </summary>
         public DbSet<User> User { get; set; }
+
         /// <summary>
         /// Section property
         /// </summary>
         public DbSet<Section> Section { get; set; }
+
         /// <summary>
         /// Moving property
         /// </summary>
         public DbSet<Moving> Moving { get; set; }
+
         /// <summary>
         /// Title property
         /// </summary>
         public DbSet<Title> Title { get; set; }
+
         /// <summary>
         /// Images property
         /// </summary>

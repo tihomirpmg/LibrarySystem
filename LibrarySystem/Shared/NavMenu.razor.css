@@ -56,14 +56,10 @@
     }
 
     .collapse {
-        /* Never collapse the sidebar for wide screens */
         display: block;
     }
 }
 
-
-
-/* _content/LibrarySystem/Shared/NavMenu.razor.rz.scp.css */
 .navbar-toggler[b-45k8pr8roi] {
     background-color: rgba(255, 255, 255, 0.1);
 }
@@ -122,7 +118,6 @@
     }
 
     .collapse[b-45k8pr8roi] {
-        /* Never collapse the sidebar for wide screens */
         display: block;
     }
 }

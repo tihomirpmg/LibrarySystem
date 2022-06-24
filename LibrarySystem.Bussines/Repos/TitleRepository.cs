@@ -71,7 +71,7 @@ namespace LibrarySystem.Business.Repos
 
             if (book is null)
             {
-                //throw error
+                throw new RepositoryException("Error.");
             }
 
             _db.Title.Remove(book);

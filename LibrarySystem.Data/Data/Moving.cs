@@ -12,19 +12,23 @@ namespace DataAcess.Data.Models
         /// Moving TimeTaken property
         /// </summary>
         public DateTime? TimeTaken { get; set; }
+
         /// <summary>
         /// Moving ReturnDate property
         /// </summary>
         public DateTime? ReturnDate { get; set; }
+
         /// <summary>
         /// Moving Type property
         /// </summary>
         public string Type { get; set; }
+
         /// <summary>
         /// Moving Reader property
         /// </summary>
         [Key]
         public string Reader { get; set; }
+
         /// <summary>
         /// Moving Condition property
         /// </summary>

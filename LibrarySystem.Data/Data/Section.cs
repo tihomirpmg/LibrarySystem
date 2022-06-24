@@ -13,32 +13,23 @@ namespace DataAcess.Data.Models
         /// </summary>
         [Key]
         public int Id { get; set; }
+
         /// <summary>
         /// Section Name property
         /// </summary>
         [Required]
         public string Name { get; set; }
+
         /// <summary>
         /// Section Book property
         /// </summary>
         [Required]
         public string Book { get; set; }
+
         /// <summary>
         /// Section Description property
         /// </summary>
         [Required]
         public string Description { get; set; }
-
-        public Section()
-        {
-        }
-
-        public Section(SectionDto sectionDto)
-        {
-            this.Id = sectionDto.Id;
-            this.Name = sectionDto.Name;
-            this.Book = sectionDto.Book;
-            this.Description = sectionDto.Description;
-        }
     }
 }
