@@ -2,4 +2,4 @@ bin
 obj
 .vs/
 styles.css
-wwwroot/lib
+wwwroot/lib/bootstrap/
