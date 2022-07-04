@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LibrarySystem.Business.Repos
@@ -21,24 +22,24 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<SectionDto> CreateAsync(SectionDto sectionDto)
+        public async Task<SectionDto> CreateAsync(SectionDto sectionDto, CancellationToken cancelletaionToken = default)
         {
             Section section = Conversion.ConvertSection(sectionDto);
             var addedSection = _db.Section.Add(section);
-            await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync(cancelletaionToken);
             var result = Conversion.ConvertSection(addedSection.Entity);
             return result;
         }
 
         ///<inheritdoc/>
-        public async Task<IEnumerable<SectionDto>> GetAllAsync()
+        public async Task<IEnumerable<SectionDto>> GetAllAsync(CancellationToken cancelletaionToken = default)
         {
             try
             {
                 IEnumerable<Section> sections = _db.Section;
                 IEnumerable<SectionDto> result = sections.Select(Conversion.ConvertSection);
 
-                await _db.SaveChangesAsync();
+                await _db.SaveChangesAsync(cancelletaionToken);
                 return result;
             }
             catch (Exception ex)
@@ -48,11 +49,11 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<SectionDto> GetAsync(int bookId)
+        public async Task<SectionDto> GetAsync(int bookId, CancellationToken cancelletaionToken = default)
         {
             try
             {
-                Section section = await _db.Section.FirstOrDefaultAsync(x => x.Id == bookId);
+                Section section = await _db.Section.FirstOrDefaultAsync(x => x.Id == bookId, cancelletaionToken);
                 SectionDto result = Conversion.ConvertSection(section);
 
                 return result;
@@ -64,7 +65,7 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<SectionDto> UpdateAsync(int bookId, SectionDto sectionDto)
+        public async Task<SectionDto> UpdateAsync(int bookId, SectionDto sectionDto, CancellationToken cancelletaionToken = default)
         {
             try
             {
@@ -73,7 +74,7 @@ namespace LibrarySystem.Business.Repos
                     Section details = await _db.Section.FindAsync(bookId);
                     SectionDto book = Conversion.ConvertSection(details);
                     var updatedBook = _db.Section.Update(details);
-                    await _db.SaveChangesAsync();
+                    await _db.SaveChangesAsync(cancelletaionToken);
                     var result = Conversion.ConvertSection(updatedBook.Entity);
                     return result;
                 }

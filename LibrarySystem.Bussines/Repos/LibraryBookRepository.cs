@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LibrarySystem.Business.Repos
@@ -21,25 +22,25 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<LibraryBookDto> CreateAsync(LibraryBookDto libraryBookDto)
+        public async Task<LibraryBookDto> CreateAsync(LibraryBookDto libraryBookDto, CancellationToken cancelletaionToken = default)
         {
             LibraryBook libraryBook = Conversion.ConvertBook(libraryBookDto);
             var addedLibraryBook = _db.LibraryBook.Add(libraryBook);
-            await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync(cancelletaionToken);
             var result = Conversion.ConvertBook(addedLibraryBook.Entity);
 
             return result;
         }
 
         ///<inheritdoc/>
-        public async Task<IEnumerable<LibraryBookDto>> GetAllAsync()
+        public async Task<IEnumerable<LibraryBookDto>> GetAllAsync(CancellationToken cancelletaionToken = default)
         {
             try
             {
                 IEnumerable<LibraryBook> books = _db.LibraryBook;
                 IEnumerable<LibraryBookDto> result = books.Select(Conversion.ConvertBook);
 
-                await _db.SaveChangesAsync();
+                await _db.SaveChangesAsync(cancelletaionToken);
                 return result;
             }
             catch (Exception ex)
@@ -49,11 +50,11 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<LibraryBookDto> GetAsync(int bookId)
+        public async Task<LibraryBookDto> GetAsync(int bookId, CancellationToken cancelletaionToken = default)
         {
             try
             {
-                LibraryBook libraryBook = await _db.LibraryBook.FirstOrDefaultAsync(x => x.Id == bookId);
+                LibraryBook libraryBook = await _db.LibraryBook.FirstOrDefaultAsync(x => x.Id == bookId, cancelletaionToken);
                 LibraryBookDto result = Conversion.ConvertBook(libraryBook);
                 return result;
             }
@@ -64,25 +65,25 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task DeleteAsync(int bookId)
+        public async Task DeleteAsync(int bookId, CancellationToken cancelletaionToken = default)
         {
             var book = await _db.LibraryBook.FindAsync(bookId);
             if (book is null)
             {
-                //throw error
+                throw new RepositoryException("Can not update this book");
             }
             _db.LibraryBook.Remove(book);
-            await _db.SaveChangesAsync();
+            await _db.SaveChangesAsync(cancelletaionToken);
         }
 
         ///<inheritdoc/>
-        public async Task<LibraryBookDto> GetUniqueAsync(string name, int bookId = 0)
+        public async Task<LibraryBookDto> GetUniqueAsync(string name, int bookId = 0, CancellationToken cancelletaionToken = default)
         {
             try
             {
                 if (bookId == 0)
                 {
-                    LibraryBook book = await _db.LibraryBook.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+                    LibraryBook book = await _db.LibraryBook.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower(), cancelletaionToken);
                     LibraryBookDto result = Conversion.ConvertBook(book);
 
                     return result;
@@ -90,7 +91,7 @@ namespace LibrarySystem.Business.Repos
                 else
                 {
                     LibraryBook book = await _db.LibraryBook.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower()
-                                        && x.Id == bookId);
+                                        && x.Id == bookId, cancelletaionToken);
                     LibraryBookDto result = Conversion.ConvertBook(book);
 
                     return result;
@@ -104,7 +105,7 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<LibraryBookDto> UpdateAsync(int bookId, LibraryBookDto libraryBookDto)
+        public async Task<LibraryBookDto> UpdateAsync(int bookId, LibraryBookDto libraryBookDto, CancellationToken cancelletaionToken = default)
         {
             try
             {
@@ -113,7 +114,7 @@ namespace LibrarySystem.Business.Repos
                     LibraryBook book = await _db.LibraryBook.FindAsync(bookId);
                     LibraryBook convertedBook = Conversion.ConvertUpdate(book, libraryBookDto);
                     var updatedBook = _db.LibraryBook.Update(convertedBook);
-                    await _db.SaveChangesAsync();
+                    await _db.SaveChangesAsync(cancelletaionToken);
                     var result = Conversion.ConvertBook(updatedBook.Entity);
                     return result;
                 }

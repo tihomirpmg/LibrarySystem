@@ -1,6 +1,7 @@
 ﻿using LibrarySystem.Bussines.Repos.IRepository;
 using LibrarySystem.Models;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LibrarySystem.Business.Repos
@@ -15,7 +16,7 @@ namespace LibrarySystem.Business.Repos
         /// </summary>
         /// <param name="bookId">the book ID</param>
         /// <returns>an empty result</returns>
-        public Task DeleteAsync(int bookId);
+        public Task DeleteAsync(int bookId, CancellationToken cancelletaionToken = default);
 
         /// <summary>
         /// Check if the book is unique. 
@@ -23,6 +24,6 @@ namespace LibrarySystem.Business.Repos
         /// <param name="name">the book name</param>
         /// <param name="bookId">the book ID</param>
         /// <returns>the result</returns>
-        public Task<LibraryBookDto> GetUniqueAsync(string name, int bookId = 0);
+        public Task<LibraryBookDto> GetUniqueAsync(string name, int bookId = 0, CancellationToken cancelletaionToken = default);
     }
 }
