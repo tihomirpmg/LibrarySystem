@@ -10,7 +10,6 @@ namespace LibrarySystem.Business.Repos
     /// </summary>
     public interface ILibraryBookRepository : IBaseRepository<LibraryBookDto>
     {
-
         /// <summary>
         /// Deletes book.
         /// </summary>

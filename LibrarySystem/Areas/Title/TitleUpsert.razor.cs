@@ -13,11 +13,17 @@ namespace LibrarySystem.Areas.Title
     {
         [Parameter]
         public int? Id { get; set; }
+
         private TitleDto TitleModel { get; set; } = new TitleDto();
+
         private string Create { get; set; } = "Create";
+
         private ImageDto TitleImage { get; set; } = new ImageDto();
+
         private List<string> DeleteImageNames { get; set; } = new List<string>();
+
         private bool IsImageUploadProcessStarted { get; set; } = false;
+
 
         [CascadingParameter]
         public Task<AuthenticationState> AuthenticationState { get; set; }

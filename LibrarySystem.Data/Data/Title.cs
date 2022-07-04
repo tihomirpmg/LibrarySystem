@@ -2,7 +2,6 @@
 namespace DataAcess.Data.Models
 {
     using LibrarySystem.Data.Data;
-    using LibrarySystem.Models;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     /// <summary>
@@ -73,7 +72,6 @@ namespace DataAcess.Data.Models
         [Required]
         public string Section { get; set; }
 
-
-        public virtual ICollection<Images> TitleImages { get; set; }
+        public virtual ICollection<Image> TitleImages { get; set; }
     }
 }

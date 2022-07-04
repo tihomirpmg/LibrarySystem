@@ -7,7 +7,7 @@ namespace LibrarySystem.Data.Data
     /// <summary>
     /// Images model class
     /// </summary>
-    public class Images
+    public class Image
     {
         /// <summary>
         /// Images Id property

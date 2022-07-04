@@ -12,16 +12,19 @@ namespace LibrarySystem.Models
         /// </summary>
         [Key]
         public int Id { get; set; }
+
         /// <summary>
         /// SectionDto Name property
         /// </summary>
         [Required]
         public string Name { get; set; }
+
         /// <summary>
         /// SectionDto Books property
         /// </summary>
         [Required]
         public string Book { get; set; }
+
         /// <summary>
         /// SectionDto Description property
         /// </summary>
@@ -30,18 +33,6 @@ namespace LibrarySystem.Models
 
         public SectionDto()
         {
-        }
-
-        public SectionDto(
-            int id,
-            string name,
-            string book,
-            string description)
-        {
-            this.Id = id;
-            this.Name = name;
-            this.Book = book;
-            this.Description = description;
         }
     }
 }

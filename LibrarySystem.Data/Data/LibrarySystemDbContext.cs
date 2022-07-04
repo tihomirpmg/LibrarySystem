@@ -21,7 +21,6 @@ namespace LibrarySystem.Data.Data
         public LibrarySystemDbContext(DbContextOptions<LibrarySystemDbContext> options)
             : base(options)
         {
-
         }
         /// <summary>
         /// LibraryBook property
@@ -51,6 +50,6 @@ namespace LibrarySystem.Data.Data
         /// <summary>
         /// Images property
         /// </summary>
-        public DbSet<Images> Images { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }

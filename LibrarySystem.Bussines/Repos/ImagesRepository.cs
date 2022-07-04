@@ -20,7 +20,7 @@ namespace LibrarySystem.Business.Repos
         ///<inheritdoc/>
         public async Task<int> CreateNewImageAsync(ImageDto imageDto)
         {
-            Images image = Conversion.ConvertImage(imageDto);
+            Image image = Conversion.ConvertImage(imageDto);
             await _db.Images.AddAsync(image);
             return await _db.SaveChangesAsync();
         }

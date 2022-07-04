@@ -39,6 +39,7 @@ namespace LibrarySystem.Business.Repos
                 IEnumerable<LibraryBook> books = _db.LibraryBook;
                 IEnumerable<LibraryBookDto> result = books.Select(Conversion.ConvertBook);
 
+                await _db.SaveChangesAsync();
                 return result;
             }
             catch (Exception ex)

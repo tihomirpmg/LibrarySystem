@@ -9,10 +9,12 @@
         /// ImageDto Id property
         /// </summary>
         public int Id { get; set; }
+
         /// <summary>
         /// ImageDto BookId property
         /// </summary>
         public int BookId { get; set; }
+
         /// <summary>
         /// ImageDto BookImageUrl property
         /// </summary>

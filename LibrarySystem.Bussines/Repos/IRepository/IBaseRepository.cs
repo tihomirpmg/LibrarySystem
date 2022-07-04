@@ -36,6 +36,5 @@ namespace LibrarySystem.Bussines.Repos.IRepository
         /// </summary>
         /// <returns>collection of books</returns>
         public Task<IEnumerable<T>> GetAllAsync();
-
     }
 }

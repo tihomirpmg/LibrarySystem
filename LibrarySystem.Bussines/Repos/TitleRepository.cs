@@ -40,6 +40,7 @@ namespace LibrarySystem.Business.Repos
                 IEnumerable<Title> titles = _db.Title.Include(x => x.TitleImages);
                 IEnumerable<TitleDto> result = titles.Select(Conversion.ConvertTitle);
 
+                await _db.SaveChangesAsync();
                 return result;
             }
             catch (Exception ex)

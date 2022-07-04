@@ -10,8 +10,11 @@ namespace LibrarySystem.Areas.LibraryBook
     {
         [Parameter]
         public int? Id { get; set; }
+
         private LibraryBookDto LibraryBookModel { get; set; } = new LibraryBookDto();
+
         private string Title { get; set; } = "Create";
+
         [CascadingParameter]
         public Task<AuthenticationState> AuthenticationState { get; set; }
 

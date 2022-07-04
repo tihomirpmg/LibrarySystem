@@ -12,21 +12,25 @@ namespace LibrarySystem.Models
         /// </summary>
         [Key]
         public int Id { get; set; }
+
         /// <summary>
         /// LibraryBookDto Name property
         /// </summary>
         [Required(ErrorMessage = "Please enter book name")]
         public string Name { get; set; }
+
         /// <summary>
         /// LibraryBookDto Condition property
         /// </summary>
         [Required]
         public string Condition { get; set; }
+
         /// <summary>
         /// LibraryBookDto Bearer property
         /// </summary>
         [Required]
         public string Bearer { get; set; }
+
         /// <summary>
         /// LibraryBookDto Stock property
         /// </summary>
@@ -35,20 +39,6 @@ namespace LibrarySystem.Models
 
         public LibraryBookDto()
         {
-        }
-
-        public LibraryBookDto(
-            int id,
-            string name,
-            string condition,
-            string bearer,
-            string stock)
-        {
-            this.Id = id;
-            this.Name = name;
-            this.Condition = condition;
-            this.Bearer = bearer;
-            this.Stock = stock;
         }
     }
 }

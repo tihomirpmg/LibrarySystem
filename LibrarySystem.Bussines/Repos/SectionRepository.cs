@@ -38,6 +38,7 @@ namespace LibrarySystem.Business.Repos
                 IEnumerable<Section> sections = _db.Section;
                 IEnumerable<SectionDto> result = sections.Select(Conversion.ConvertSection);
 
+                await _db.SaveChangesAsync();
                 return result;
             }
             catch (Exception ex)

@@ -37,14 +37,14 @@ namespace LibrarySystem.Business
             return result;
         }
 
-        internal static Images ConvertImage(ImageDto image)
+        internal static Image ConvertImage(ImageDto image)
         {
             if (image is null)
             {
                 throw new ArgumentNullException(nameof(image));
             }
 
-            var result = new Images
+            var result = new Image
             {
                 Id = image.Id,
                 BookId = image.BookId,
@@ -80,7 +80,7 @@ namespace LibrarySystem.Business
             return result;
         }
 
-        internal static ImageDto ConvertImage(Images image)
+        internal static ImageDto ConvertImage(Image image)
         {
             if (image is null)
             {
