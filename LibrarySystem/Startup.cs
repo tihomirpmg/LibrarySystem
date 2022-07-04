@@ -28,9 +28,6 @@ namespace LibrarySystem
             services.AddDbContext<LibrarySystemDbContext>(options =>
                     options.UseSqlServer(
                         Configuration.GetConnectionString("DefaultConnection")));
-
-            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //        .AddEntityFrameworkStores<LibrarySystemDbContext>();
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<LibrarySystemDbContext>().AddDefaultTokenProviders()
                 .AddDefaultUI();

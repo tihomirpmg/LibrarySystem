@@ -37,7 +37,7 @@ namespace LibrarySystem.Areas.Title
             if (Id != null)
             {
                 Create = "Update";
-                TitleModel = await TitleRepository.GetBookAsync(Id.Value);
+                TitleModel = await TitleRepository.GetAsync(Id.Value);
                 if (TitleModel?.TitleImages != null)
                 {
                     TitleModel.ImageUrls = TitleModel.TitleImages.Select(u => u.BookImageUrl).ToList();
@@ -55,7 +55,7 @@ namespace LibrarySystem.Areas.Title
             {
                 if (TitleModel.Id != 0 && Create == "Update")
                 {
-                    var updateBookResult = await TitleRepository.UpdateBookAsync(TitleModel.Id, TitleModel);
+                    var updateBookResult = await TitleRepository.UpdateAsync(TitleModel.Id, TitleModel);
                     if (TitleModel.ImageUrls != null && TitleModel.ImageUrls.Any())
                     {
                         if (DeleteImageNames != null && DeleteImageNames.Any())
@@ -73,7 +73,7 @@ namespace LibrarySystem.Areas.Title
                 }
                 else
                 {
-                    var createdResult = await TitleRepository.CreateBookAsync(TitleModel);
+                    var createdResult = await TitleRepository.CreateAsync(TitleModel);
                     await AddTitleImage(createdResult);
                 }
             }

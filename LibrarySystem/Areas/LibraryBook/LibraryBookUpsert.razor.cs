@@ -30,7 +30,7 @@ namespace LibrarySystem.Areas.LibraryBook
             if (Id != null)
             {
                 Title = "Update";
-                LibraryBookModel = await LibraryBookRepository.GetBookAsync(Id.Value);
+                LibraryBookModel = await LibraryBookRepository.GetAsync(Id.Value);
             }
             else
             {
@@ -44,11 +44,11 @@ namespace LibrarySystem.Areas.LibraryBook
             {
                 if (LibraryBookModel.Id != 0 && Title == "Update")
                 {
-                    var updateBookResult = await LibraryBookRepository.UpdateBookAsync(LibraryBookModel.Id, LibraryBookModel);
+                    var updateBookResult = await LibraryBookRepository.UpdateAsync(LibraryBookModel.Id, LibraryBookModel);
                 }
                 else
                 {
-                    var createdResult = await LibraryBookRepository.CreateBookAsync(LibraryBookModel);
+                    var createdResult = await LibraryBookRepository.CreateAsync(LibraryBookModel);
                 }
             }
             catch (RepositoryException ex)

@@ -22,7 +22,7 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<TitleDto> CreateBookAsync(TitleDto titleDto)
+        public async Task<TitleDto> CreateAsync(TitleDto titleDto)
         {
             Title title = Conversion.ConvertTitle(titleDto);
             var addedTitle = _db.Title.Add(title);
@@ -33,7 +33,7 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<IEnumerable<TitleDto>> GetAllBooksAsync()
+        public async Task<IEnumerable<TitleDto>> GetAllAsync()
         {
             try
             {
@@ -49,7 +49,7 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<TitleDto> GetBookAsync(int bookId)
+        public async Task<TitleDto> GetAsync(int bookId)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task DeleteBookAsync(int bookId)
+        public async Task DeleteAsync(int bookId)
         {
             var book = await _db.Title.FindAsync(bookId);
 
@@ -79,7 +79,7 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<TitleDto> GetUniqueBookAsync(string name, int bookId = 0)
+        public async Task<TitleDto> GetUniqueAsync(string name, int bookId = 0)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<TitleDto> UpdateBookAsync(int bookId, TitleDto titleDto)
+        public async Task<TitleDto> UpdateAsync(int bookId, TitleDto titleDto)
         {
             try
             {

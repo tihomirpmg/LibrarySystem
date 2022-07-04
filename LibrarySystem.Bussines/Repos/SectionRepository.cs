@@ -21,7 +21,7 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<SectionDto> CreateSectionAsync(SectionDto sectionDto)
+        public async Task<SectionDto> CreateAsync(SectionDto sectionDto)
         {
             Section section = Conversion.ConvertSection(sectionDto);
             var addedSection = _db.Section.Add(section);
@@ -31,7 +31,7 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<IEnumerable<SectionDto>> GetAllSectionsAsync()
+        public async Task<IEnumerable<SectionDto>> GetAllAsync()
         {
             try
             {
@@ -47,7 +47,7 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<SectionDto> GetSectionAsync(int bookId)
+        public async Task<SectionDto> GetAsync(int bookId)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace LibrarySystem.Business.Repos
         }
 
         ///<inheritdoc/>
-        public async Task<SectionDto> UpdateSectionAsync(int bookId, SectionDto sectionDto)
+        public async Task<SectionDto> UpdateAsync(int bookId, SectionDto sectionDto)
         {
             try
             {
