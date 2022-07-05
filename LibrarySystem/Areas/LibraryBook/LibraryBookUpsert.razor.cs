@@ -11,7 +11,7 @@ namespace LibrarySystem.Areas.LibraryBook
         [Parameter]
         public int? Id { get; set; }
 
-        private LibraryBookDto LibraryBookModel { get; set; } = new LibraryBookDto();
+        private LibraryBookDTo LibraryBookModel { get; set; } = new LibraryBookDTo();
 
         private string Title { get; set; } = "Create";
 
@@ -37,7 +37,7 @@ namespace LibrarySystem.Areas.LibraryBook
             }
             else
             {
-                LibraryBookModel = new LibraryBookDto();
+                LibraryBookModel = new LibraryBookDTo();
             }
         }
 

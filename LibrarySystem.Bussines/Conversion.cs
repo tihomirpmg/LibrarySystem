@@ -97,7 +97,7 @@ namespace LibrarySystem.Business
             return result;
         }
 
-        internal static LibraryBook ConvertBook(LibraryBookDto book)
+        internal static LibraryBook ConvertBook(LibraryBookDTo book)
         {
             if (book is null)
             {
@@ -116,14 +116,14 @@ namespace LibrarySystem.Business
             return result;
         }
 
-        internal static LibraryBookDto ConvertBook(LibraryBook book)
+        internal static LibraryBookDTo ConvertBook(LibraryBook book)
         {
             if (book is null)
             {
                 throw new ArgumentNullException(nameof(book));
             }
 
-            var result = new LibraryBookDto
+            var result = new LibraryBookDTo
             {
                 Id = book.Id,
                 Name = book.Name,
@@ -190,7 +190,7 @@ namespace LibrarySystem.Business
             return title;
         }
 
-        internal static LibraryBook ConvertUpdate(LibraryBook book, LibraryBookDto bookDetails)
+        internal static LibraryBook ConvertUpdate(LibraryBook book, LibraryBookDTo bookDetails)
         {
             book.Id = bookDetails.Id;
             book.Name = bookDetails.Name;
