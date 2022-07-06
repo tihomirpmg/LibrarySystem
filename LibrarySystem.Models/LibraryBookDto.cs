@@ -5,7 +5,7 @@ namespace LibrarySystem.Models
     /// <summary>
     /// LibraryBookDto class
     /// </summary>
-    public class LibraryBookDTo
+    public class LibraryBookDto
     {
         /// <summary>
         /// LibraryBookDto Id property
@@ -36,9 +36,5 @@ namespace LibrarySystem.Models
         /// </summary>
         [Required]
         public string Stock { get; set; }
-
-        public LibraryBookDTo()
-        {
-        }
     }
 }

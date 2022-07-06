@@ -1,8 +1,7 @@
-﻿#nullable disable
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace DataAcess.Data.Models
 {
-    using LibrarySystem.Models;
-    using System.ComponentModel.DataAnnotations;
     /// <summary>
     /// Section model class
     /// </summary>

@@ -1,8 +1,8 @@
-﻿using LibrarySystem.Business;
+﻿using System.Threading.Tasks;
+using LibrarySystem.Business;
 using LibrarySystem.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using System.Threading.Tasks;
 
 namespace LibrarySystem.Areas.LibraryBook
 {
@@ -11,7 +11,7 @@ namespace LibrarySystem.Areas.LibraryBook
         [Parameter]
         public int? Id { get; set; }
 
-        private LibraryBookDTo LibraryBookModel { get; set; } = new LibraryBookDTo();
+        private LibraryBookDto LibraryBookModel { get; set; } = new LibraryBookDto();
 
         private string Title { get; set; } = "Create";
 
@@ -37,7 +37,7 @@ namespace LibrarySystem.Areas.LibraryBook
             }
             else
             {
-                LibraryBookModel = new LibraryBookDTo();
+                LibraryBookModel = new LibraryBookDto();
             }
         }
 

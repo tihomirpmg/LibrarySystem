@@ -1,15 +1,14 @@
-﻿using LibrarySystem.Bussines.Repos.IRepository;
-using LibrarySystem.Models;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using LibrarySystem.Bussines.Repos.IRepository;
+using LibrarySystem.Models;
 
 namespace LibrarySystem.Business.Repos
 {
     /// <summary>
     /// Interface LibraryBookRepository class
     /// </summary>
-    public interface ILibraryBookRepository : IBaseRepository<LibraryBookDTo>
+    public interface ILibraryBookRepository : IBaseRepository<LibraryBookDto>
     {
         /// <summary>
         /// Deletes book.
@@ -24,6 +23,6 @@ namespace LibrarySystem.Business.Repos
         /// <param name="name">the book name</param>
         /// <param name="bookId">the book ID</param>
         /// <returns>the result</returns>
-        public Task<LibraryBookDTo> GetUniqueAsync(string name, int bookId = 0, CancellationToken cancelletaionToken = default);
+        public Task<LibraryBookDto> GetUniqueAsync(string name, int bookId = 0, CancellationToken cancelletaionToken = default);
     }
 }

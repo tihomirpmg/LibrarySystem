@@ -1,7 +1,7 @@
-﻿namespace DataAcess.Data.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DataAcess.Data.Models
 {
-    using LibrarySystem.Models;
-    using System.ComponentModel.DataAnnotations;
     /// <summary>
     /// LibraryBook model class
     /// </summary>

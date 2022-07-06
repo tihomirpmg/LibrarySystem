@@ -1,8 +1,8 @@
-﻿#nullable disable
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace DataAcess.Data.Models
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
     /// <summary>
     /// Moving model class
     /// </summary>

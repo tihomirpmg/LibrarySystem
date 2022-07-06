@@ -1,8 +1,8 @@
-﻿using DataAcess.Data.Models;
+﻿using System;
+using System.Linq;
+using DataAcess.Data.Models;
 using LibrarySystem.Data.Data;
 using LibrarySystem.Models;
-using System;
-using System.Linq;
 
 namespace LibrarySystem.Business
 {
@@ -97,7 +97,7 @@ namespace LibrarySystem.Business
             return result;
         }
 
-        internal static LibraryBook ConvertBook(LibraryBookDTo book)
+        internal static LibraryBook ConvertBook(LibraryBookDto book)
         {
             if (book is null)
             {
@@ -116,14 +116,14 @@ namespace LibrarySystem.Business
             return result;
         }
 
-        internal static LibraryBookDTo ConvertBook(LibraryBook book)
+        internal static LibraryBookDto ConvertBook(LibraryBook book)
         {
             if (book is null)
             {
                 throw new ArgumentNullException(nameof(book));
             }
 
-            var result = new LibraryBookDTo
+            var result = new LibraryBookDto
             {
                 Id = book.Id,
                 Name = book.Name,
@@ -190,7 +190,7 @@ namespace LibrarySystem.Business
             return title;
         }
 
-        internal static LibraryBook ConvertUpdate(LibraryBook book, LibraryBookDTo bookDetails)
+        internal static LibraryBook ConvertUpdate(LibraryBook book, LibraryBookDto bookDetails)
         {
             book.Id = bookDetails.Id;
             book.Name = bookDetails.Name;

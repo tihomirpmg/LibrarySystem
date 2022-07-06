@@ -1,6 +1,7 @@
-﻿namespace DataAcess.Data.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DataAcess.Data.Models
 {
-    using System.ComponentModel.DataAnnotations;
     /// <summary>
     /// User model class
     /// </summary>

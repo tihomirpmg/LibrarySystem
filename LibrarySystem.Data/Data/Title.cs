@@ -1,9 +1,9 @@
-﻿#nullable disable
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using LibrarySystem.Data.Data;
+
 namespace DataAcess.Data.Models
 {
-    using LibrarySystem.Data.Data;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     /// <summary>
     /// Title model class
     /// </summary>
