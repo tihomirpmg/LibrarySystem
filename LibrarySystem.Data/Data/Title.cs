@@ -51,16 +51,6 @@ namespace DataAcess.Data.Models
         public string Type { get; set; }
 
         /// <summary>
-        /// Title ImageContent property
-        /// </summary>
-        public byte[] ImageContent { get; set; }
-
-        /// <summary>
-        /// Title ImageName property
-        /// </summary>
-        public string ImageName { get; set; }
-
-        /// <summary>
         /// Title Publisher property
         /// </summary>
         [Required]

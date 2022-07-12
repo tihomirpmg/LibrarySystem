@@ -22,8 +22,6 @@ namespace LibrarySystem.Business
             {
                 Id = title.Id,
                 Description = title.Description,
-                ImageContent = title.ImageContent,
-                ImageName = title.ImageName,
                 Isbn = title.Isbn,
                 Name = title.Name,
                 Publisher = title.Publisher,
@@ -65,8 +63,6 @@ namespace LibrarySystem.Business
             {
                 Id = title.Id,
                 Description = title.Description,
-                ImageContent = title.ImageContent,
-                ImageName = title.ImageName,
                 Isbn = title.Isbn,
                 Name = title.Name,
                 Publisher = title.Publisher,
@@ -176,8 +172,6 @@ namespace LibrarySystem.Business
 
             title.Id = bookDetails.Id;
             title.Description = bookDetails.Description;
-            title.ImageContent = bookDetails.ImageContent;
-            title.ImageName = bookDetails.ImageName;
             title.Isbn = bookDetails.Isbn;
             title.Name = bookDetails.Name;
             title.Publisher = bookDetails.Publisher;

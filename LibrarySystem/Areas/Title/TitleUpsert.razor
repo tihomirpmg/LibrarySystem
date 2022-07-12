@@ -21,7 +21,9 @@
                         <ValidationMessage For="() => TitleModel.Name"></ValidationMessage>
                     </div>
                     <div class="form-group">
-                        <InputFile OnChange="HandleImageUpload" multiple></InputFile>
+                        <label>Image Url</label>
+                        <InputText @bind-Value="TitleModel.ImageUrl" class="form-control"></InputText>
+                        <button type="button" @onclick="()=>HandleImageUpload(TitleModel.ImageUrl)" class="btn btn-outline-primary btn-block mt-4">Add</button>
                         <div class="row">
                             @if (IsImageUploadProcessStarted)
                             {
@@ -35,9 +37,9 @@
                                 foreach (var bookImage in TitleModel.ImageUrls)
                                 {
                                     <div class="col-md-2 mt-3">
-                                        <div class="book-image" style="background: url('@bookImage') 50% 50%;">
-                                            <span class="book-image-title">@serial</span>
-                                        </div>
+                                        <img src="@bookImage" width="210" height="160" />
+                                        <span class="book-image-title">@serial</span>
+
                                         <button type="button" @onclick="()=>DeletePhoto(bookImage)" class="btn btn-outline-danger btn-block mt-4">Delete</button>
                                     </div>
                                     serial++;

@@ -52,12 +52,7 @@ namespace LibrarySystem.Models
         /// <summary>
         /// TitleDto ImageContent property
         /// </summary>
-        public byte[] ImageContent { get; set; }
-
-        /// <summary>
-        /// TitleDto ImageName property
-        /// </summary>
-        public string ImageName { get; set; }
+        public string ImageUrl { get; set; }
 
         /// <summary>
         /// TitleDto Publisher property

@@ -92,41 +92,18 @@ namespace LibrarySystem.Areas.Title
             NavigationManager.NavigateTo("add-title");
         }
 
-        private async Task HandleImageUpload(InputFileChangeEventArgs e)
+        private async Task HandleImageUpload(string imageUrl)
         {
-            IsImageUploadProcessStarted = true;
             try
             {
-                var images = new List<string>();
-                if (e.GetMultipleFiles().Count > 0)
-                {
-                    foreach (var file in e.GetMultipleFiles())
-                    {
-                        System.IO.FileInfo fileInfo = new System.IO.FileInfo(file.Name);
-                        if (fileInfo.Extension.ToLower() == ".jpg" || fileInfo.Extension.ToLower() == ".png" || fileInfo.Extension.ToLower() == ".jpeg" || fileInfo.Extension.ToLower() == ".gif")
-                        {
-                            var uploadedImagePath = await FileUpload.UploadFile(file);
-                            images.Add(uploadedImagePath);
-                        }
-
-                        if (images.Any())
-                        {
-                            if (TitleModel.ImageUrls != null && TitleModel.ImageUrls.Any())
-                            {
-                                TitleModel.ImageUrls.AddRange(images);
-                            }
-                            else
-                            {
-                                TitleModel.ImageUrls = new List<string>();
-                                TitleModel.ImageUrls.AddRange(images);
-                            }
-                        }
-                    }
-                }
-                IsImageUploadProcessStarted = false;
+                 TitleModel.ImageUrls.Add(imageUrl);
             }
             catch (RepositoryException ex)
             {
+                if(imageUrl == null)
+                {
+                    throw new RepositoryException("Image url is null.");
+                }
                 hasError = true;
                 errorMessage = "An error occurred while uploading image to title.";
                 errorText = ex.Message;
@@ -144,6 +121,10 @@ namespace LibrarySystem.Areas.Title
                         BookImageUrl = imageUrl
                     };
                     await ImagesRepository.CreateNewImageAsync(TitleImage);
+                }
+                if (imageUrl == null)
+                {
+                    throw new RepositoryException("Image url is null.");
                 }
             }
         }
