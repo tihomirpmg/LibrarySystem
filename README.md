@@ -3,7 +3,7 @@
 ## Author Details
 
  - Name: Tihomir Naydenov
- - E-mail: tihomirn884@gmail.com
+ - E-mail: <tihomirn884@gmail.com>
 
 ## Application Description
 
@@ -13,7 +13,7 @@ There are three types of roles administrator, librarian and reader each with dif
 
 ## Start The Project
 
-### Change Connection
+### 1.Change Connection
 
-	To start this Blazor Server application you need to change 
-DefaultConnection in appsettings.json with "DefaultConnection": "Server=.;Database=LibrarySystem;Trusted_Connection=True;MultipleActiveResultSets=true"
+	To start this Blazor Server application you need to change
+`DefaultConnection` in **appsettings.json** with `"DefaultConnection": "Server=.;Database=LibrarySystem;Trusted_Connection=True;MultipleActiveResultSets=true"`

@@ -12,7 +12,6 @@
             <div class="card-body">
                 <EditForm Model="@LibraryBookModel" OnValidSubmit="HandleLibraryBookUpsert">
                     <DataAnnotationsValidator />
-                    @*<ValidationSummary />*@
                     <div class="form-group">
                         <label>Name</label>
                         <InputText @bind-Value="LibraryBookModel.Name" class="form-control"></InputText>
