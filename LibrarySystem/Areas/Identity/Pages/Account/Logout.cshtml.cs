@@ -5,36 +5,35 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace LibrarySystem.Areas.Identity.Pages.Account
+namespace LibrarySystem.Areas.Identity.Pages.Account;
+
+[AllowAnonymous]
+public class LogOutModel : PageModel
 {
-    [AllowAnonymous]
-    public class LogoutModel : PageModel
+    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly ILogger<LogOutModel> _logger;
+
+    public LogOutModel(SignInManager<IdentityUser> signInManager, ILogger<LogOutModel> logger)
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly ILogger<LogoutModel> _logger;
+        _signInManager = signInManager;
+        _logger = logger;
+    }
 
-        public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger)
+    public void OnGet()
+    {
+    }
+
+    public async Task<IActionResult> OnPost(string returnUrl = null)
+    {
+        await _signInManager.SignOutAsync();
+        _logger.LogInformation("User logged out.");
+        if (returnUrl != null)
         {
-            _signInManager = signInManager;
-            _logger = logger;
+            return LocalRedirect(returnUrl);
         }
-
-        public void OnGet()
+        else
         {
-        }
-
-        public async Task<IActionResult> OnPost(string returnUrl = null)
-        {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
-            if (returnUrl != null)
-            {
-                return LocalRedirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToPage();
-            }
+            return RedirectToPage();
         }
     }
 }

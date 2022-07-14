@@ -1,14 +1,13 @@
-﻿namespace LibrarySystem.Shared
+﻿namespace LibrarySystem.Shared;
+
+partial class NavMenu
 {
-    partial class NavMenu
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
     {
-        private bool collapseNavMenu = true;
-
-        private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-        private void ToggleNavMenu()
-        {
-            collapseNavMenu = !collapseNavMenu;
-        }
+        collapseNavMenu = !collapseNavMenu;
     }
 }

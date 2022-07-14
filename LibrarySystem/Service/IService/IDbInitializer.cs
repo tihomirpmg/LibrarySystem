@@ -1,7 +1,6 @@
-﻿namespace LibrarySystem.Service.IService
+﻿namespace LibrarySystem.Service.IService;
+
+public interface IDbInitializer
 {
-    public interface IDbInitializer
-    {
-        void Initialize();
-    }
+    void Initialize();
 }

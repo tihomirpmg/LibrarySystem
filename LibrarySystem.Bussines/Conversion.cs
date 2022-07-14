@@ -3,196 +3,194 @@ using System.Linq;
 using DataAcess.Data.Models;
 using LibrarySystem.Data.Data;
 using LibrarySystem.Models;
+namespace LibrarySystem.Business;
 
-namespace LibrarySystem.Business
+/// <summary>
+/// Represent a class for converting between Data and DTO data types.
+/// </summary>
+public static class Conversion
 {
-    /// <summary>
-    /// Represent a class for converting between Data and DTO data types.
-    /// </summary>
-    public static class Conversion
+    internal static Title ConvertTitle(TitleDto title)
     {
-        internal static Title ConvertTitle(TitleDto title)
+        if (title is null)
         {
-            if (title is null)
-            {
-                throw new ArgumentNullException(nameof(title));
-            }
-
-            var result = new Title
-            {
-                Id = title.Id,
-                Description = title.Description,
-                Isbn = title.Isbn,
-                Name = title.Name,
-                Publisher = title.Publisher,
-                ReleaseYear = title.ReleaseYear,
-                Section = title.Section,
-                TitleImages = title.TitleImages.Select(ConvertImage).ToList(),
-                Type = title.Type,
-                Writer = title.Writer,
-            };
-
-            return result;
+            throw new ArgumentNullException(nameof(title));
         }
 
-        internal static Image ConvertImage(ImageDto image)
+        var result = new Title
         {
-            if (image is null)
-            {
-                throw new ArgumentNullException(nameof(image));
-            }
+            Id = title.Id,
+            Description = title.Description,
+            Isbn = title.Isbn,
+            Name = title.Name,
+            Publisher = title.Publisher,
+            ReleaseYear = title.ReleaseYear,
+            Section = title.Section,
+            TitleImages = title.TitleImages.Select(ConvertImage).ToList(),
+            Type = title.Type,
+            Writer = title.Writer,
+        };
 
-            var result = new Image
-            {
-                Id = image.Id,
-                BookId = image.BookId,
-                BookImageUrl = image.BookImageUrl,
-            };
+        return result;
+    }
 
-            return result;
+    internal static Image ConvertImage(ImageDto image)
+    {
+        if (image is null)
+        {
+            throw new ArgumentNullException(nameof(image));
         }
 
-        internal static TitleDto ConvertTitle(Title title)
+        var result = new Image
         {
-            if (title is null)
-            {
-                throw new ArgumentNullException(nameof(title));
-            }
+            Id = image.Id,
+            BookId = image.BookId,
+            BookImageUrl = image.BookImageUrl,
+        };
 
-            var result = new TitleDto
-            {
-                Id = title.Id,
-                Description = title.Description,
-                Isbn = title.Isbn,
-                Name = title.Name,
-                Publisher = title.Publisher,
-                ReleaseYear = title.ReleaseYear,
-                Section = title.Section,
-                TitleImages = title.TitleImages.Select(ConvertImage).ToList(),
-                Type = title.Type,
-                Writer = title.Writer,
-            };
+        return result;
+    }
 
-            return result;
+    internal static TitleDto ConvertTitle(Title title)
+    {
+        if (title is null)
+        {
+            throw new ArgumentNullException(nameof(title));
         }
 
-        internal static ImageDto ConvertImage(Image image)
+        var result = new TitleDto
         {
-            if (image is null)
-            {
-                throw new ArgumentNullException(nameof(image));
-            }
+            Id = title.Id,
+            Description = title.Description,
+            Isbn = title.Isbn,
+            Name = title.Name,
+            Publisher = title.Publisher,
+            ReleaseYear = title.ReleaseYear,
+            Section = title.Section,
+            TitleImages = title.TitleImages.Select(ConvertImage).ToList(),
+            Type = title.Type,
+            Writer = title.Writer,
+        };
 
-            var result = new ImageDto
-            {
-                Id = image.Id,
-                BookId = image.BookId,
-                BookImageUrl = image.BookImageUrl,
-            };
+        return result;
+    }
 
-            return result;
+    internal static ImageDto ConvertImage(Image image)
+    {
+        if (image is null)
+        {
+            throw new ArgumentNullException(nameof(image));
         }
 
-        internal static LibraryBook ConvertBook(LibraryBookDto book)
+        var result = new ImageDto
         {
-            if (book is null)
-            {
-                throw new ArgumentNullException(nameof(book));
-            }
+            Id = image.Id,
+            BookId = image.BookId,
+            BookImageUrl = image.BookImageUrl,
+        };
 
-            var result = new LibraryBook
-            {
-                Id = book.Id,
-                Name = book.Name,
-                Bearer = book.Bearer,
-                Condition = book.Condition,
-                Stock = book.Stock,
-            };
+        return result;
+    }
 
-            return result;
+    internal static LibraryBook ConvertBook(LibraryBookDto book)
+    {
+        if (book is null)
+        {
+            throw new ArgumentNullException(nameof(book));
         }
 
-        internal static LibraryBookDto ConvertBook(LibraryBook book)
+        var result = new LibraryBook
         {
-            if (book is null)
-            {
-                throw new ArgumentNullException(nameof(book));
-            }
+            Id = book.Id,
+            Name = book.Name,
+            Bearer = book.Bearer,
+            Condition = book.Condition,
+            Stock = book.Stock,
+        };
 
-            var result = new LibraryBookDto
-            {
-                Id = book.Id,
-                Name = book.Name,
-                Bearer = book.Bearer,
-                Condition = book.Condition,
-                Stock = book.Stock,
-            };
+        return result;
+    }
 
-            return result;
+    internal static LibraryBookDto ConvertBook(LibraryBook book)
+    {
+        if (book is null)
+        {
+            throw new ArgumentNullException(nameof(book));
         }
 
-        internal static SectionDto ConvertSection(Section section)
+        var result = new LibraryBookDto
         {
-            if (section is null)
-            {
-                throw new ArgumentNullException(nameof(section));
-            }
+            Id = book.Id,
+            Name = book.Name,
+            Bearer = book.Bearer,
+            Condition = book.Condition,
+            Stock = book.Stock,
+        };
 
-            var result = new SectionDto
-            {
-                Id = section.Id,
-                Name = section.Name,
-                Book = section.Book,
-                Description = section.Description,
-            };
+        return result;
+    }
 
-            return result;
+    internal static SectionDto ConvertSection(Section section)
+    {
+        if (section is null)
+        {
+            throw new ArgumentNullException(nameof(section));
         }
 
-        internal static Section ConvertSection(SectionDto section)
+        var result = new SectionDto
         {
-            if (section is null)
-            {
-                throw new ArgumentNullException(nameof(section));
-            }
+            Id = section.Id,
+            Name = section.Name,
+            Book = section.Book,
+            Description = section.Description,
+        };
 
-            var result = new Section
-            {
-                Id = section.Id,
-                Name = section.Name,
-                Book = section.Book,
-                Description = section.Description,
-            };
+        return result;
+    }
 
-            return result;
+    internal static Section ConvertSection(SectionDto section)
+    {
+        if (section is null)
+        {
+            throw new ArgumentNullException(nameof(section));
         }
 
-        internal static Title ConvertUpdate(Title title, TitleDto bookDetails)
+        var result = new Section
         {
+            Id = section.Id,
+            Name = section.Name,
+            Book = section.Book,
+            Description = section.Description,
+        };
 
-            title.Id = bookDetails.Id;
-            title.Description = bookDetails.Description;
-            title.Isbn = bookDetails.Isbn;
-            title.Name = bookDetails.Name;
-            title.Publisher = bookDetails.Publisher;
-            title.ReleaseYear = bookDetails.ReleaseYear;
-            title.Section = bookDetails.Section;
-            title.TitleImages = bookDetails.TitleImages.Select(ConvertImage).ToList();
-            title.Type = bookDetails.Type;
-            title.Writer = bookDetails.Writer;
+        return result;
+    }
 
-            return title;
-        }
+    internal static Title ConvertUpdate(Title title, TitleDto bookDetails)
+    {
 
-        internal static LibraryBook ConvertUpdate(LibraryBook book, LibraryBookDto bookDetails)
-        {
-            book.Id = bookDetails.Id;
-            book.Name = bookDetails.Name;
-            book.Bearer = bookDetails.Bearer;
-            book.Condition = bookDetails.Condition;
-            book.Stock = bookDetails.Stock;
+        title.Id = bookDetails.Id;
+        title.Description = bookDetails.Description;
+        title.Isbn = bookDetails.Isbn;
+        title.Name = bookDetails.Name;
+        title.Publisher = bookDetails.Publisher;
+        title.ReleaseYear = bookDetails.ReleaseYear;
+        title.Section = bookDetails.Section;
+        title.TitleImages = bookDetails.TitleImages.Select(ConvertImage).ToList();
+        title.Type = bookDetails.Type;
+        title.Writer = bookDetails.Writer;
 
-            return book;
-        }
+        return title;
+    }
+
+    internal static LibraryBook ConvertUpdate(LibraryBook book, LibraryBookDto bookDetails)
+    {
+        book.Id = bookDetails.Id;
+        book.Name = bookDetails.Name;
+        book.Bearer = bookDetails.Bearer;
+        book.Condition = bookDetails.Condition;
+        book.Stock = bookDetails.Stock;
+
+        return book;
     }
 }
