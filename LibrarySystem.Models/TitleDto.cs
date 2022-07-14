@@ -72,12 +72,5 @@ namespace LibrarySystem.Models
         /// TitleDto ImageUrls property
         /// </summary>
         public List<string> ImageUrls { get; set; }
-
-        /// <summary>
-        /// TitleDto default constructor
-        /// </summary>
-        public TitleDto()
-        {
-        }
     }
 }

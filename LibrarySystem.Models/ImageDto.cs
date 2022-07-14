@@ -21,12 +21,5 @@
         public string BookImageUrl { get; set; }
 
         public virtual TitleDto Title { get; set; }
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ImageDto()
-        {
-        }
     }
 }

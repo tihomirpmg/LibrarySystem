@@ -30,9 +30,5 @@ namespace LibrarySystem.Models
         /// </summary>
         [Required]
         public string Description { get; set; }
-
-        public SectionDto()
-        {
-        }
     }
 }
