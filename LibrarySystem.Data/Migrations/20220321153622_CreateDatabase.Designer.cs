@@ -102,10 +102,10 @@ namespace LibrarySystem.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("ImageContent")
+                    b.Property<byte[]>("ImagesContent")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("ImageName")
+                    b.Property<string>("ImagesName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Isbn")

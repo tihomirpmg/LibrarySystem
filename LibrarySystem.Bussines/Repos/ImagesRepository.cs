@@ -8,12 +8,12 @@ using Microsoft.EntityFrameworkCore;
 namespace LibrarySystem.Business.Repos;
 
 /// <summary>
-/// Images Repository class
+/// Image Repository class
 /// </summary>
-public class ImagesRepository : IImagesRepository
+public class ImageRepository : IImagesRepository
 {
     private readonly LibrarySystemDbContext _db;
-    public ImagesRepository(LibrarySystemDbContext db)
+    public ImageRepository(LibrarySystemDbContext db)
     {
         _db = db;
     }
@@ -22,32 +22,32 @@ public class ImagesRepository : IImagesRepository
     public async Task<int> CreateNewImageAsync(ImageDto imageDto, CancellationToken cancelletaionToken = default)
     {
         Image image = Conversion.ConvertImage(imageDto);
-        await _db.Images.AddAsync(image);
+        await _db.Image.AddAsync(image);
         return await _db.SaveChangesAsync(cancelletaionToken);
     }
 
     ///<inheritdoc/>
     public async Task<int> DeleteImageByBookIdAsync(int bookId, CancellationToken cancelletaionToken = default)
     {
-        var imageList = await _db.Images.Where(x => x.BookId == bookId).ToListAsync();
-        _db.Images.RemoveRange(imageList);
+        var imageList = await _db.Image.Where(x => x.BookId == bookId).ToListAsync();
+        _db.Image.RemoveRange(imageList);
         return await _db.SaveChangesAsync(cancelletaionToken);
     }
 
     ///<inheritdoc/>
     public async Task<int> DeleteImageByImageIdAsync(int imageId, CancellationToken cancelletaionToken = default)
     {
-        var image = await _db.Images.FindAsync(imageId);
-        _db.Images.Remove(image);
+        var image = await _db.Image.FindAsync(imageId);
+        _db.Image.Remove(image);
         return await _db.SaveChangesAsync(cancelletaionToken);
     }
 
     ///<inheritdoc/>
     public async Task<int> DeleteImageByImageUrlAsync(string imageUrl, CancellationToken cancelletaionToken = default)
     {
-        var allImages = await _db.Images.FirstOrDefaultAsync
+        var allImage = await _db.Image.FirstOrDefaultAsync
                          (x => x.BookImageUrl.ToLower() == imageUrl.ToLower());
-        _db.Images.Remove(allImages);
+        _db.Image.Remove(allImage);
         return await _db.SaveChangesAsync(cancelletaionToken);
     }
 }

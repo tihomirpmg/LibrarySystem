@@ -90,6 +90,31 @@ public partial class CreateDatabase : Migration
             {
                 table.PrimaryKey("PK_User", x => x.Id);
             });
+
+        migrationBuilder.CreateTable(
+                name: "Image",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    BookImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Image", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Image_Title_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Title",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+        migrationBuilder.CreateIndex(
+            name: "IX_Image_BookId",
+            table: "Image",
+            column: "BookId");
     }
 
     protected override void Down(MigrationBuilder migrationBuilder)
@@ -108,5 +133,8 @@ public partial class CreateDatabase : Migration
 
         migrationBuilder.DropTable(
             name: "User");
+
+        migrationBuilder.DropTable(
+            name: "Image");
     }
 }

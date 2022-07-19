@@ -6,459 +6,460 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace LibrarySystem.Data.Migrations;
+#nullable disable
 
-[DbContext(typeof(LibrarySystemDbContext))]
-partial class LibrarySystemDbContextModelSnapshot : ModelSnapshot
+namespace LibrarySystem.Data.Migrations
 {
-    protected override void BuildModel(ModelBuilder modelBuilder)
+    [DbContext(typeof(LibrarySystemDbContext))]
+    partial class LibrarySystemDbContextModelSnapshot : ModelSnapshot
     {
+        protected override void BuildModel(ModelBuilder modelBuilder)
+        {
 #pragma warning disable 612, 618
-        modelBuilder
-            .HasAnnotation("Relational:MaxIdentifierLength", 128)
-            .HasAnnotation("ProductVersion", "5.0.15")
-            .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            modelBuilder
+                .HasAnnotation("ProductVersion", "6.0.6")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-        modelBuilder.Entity("DataAcess.Data.Models.LibraryBook", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-                b.Property<string>("Bearer")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity("DataAcess.Data.Models.LibraryBook", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                b.Property<string>("Condition")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Bearer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Stock")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Condition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.ToTable("LibraryBook");
-            });
+                    b.Property<string>("Stock")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-        modelBuilder.Entity("DataAcess.Data.Models.Moving", b =>
-            {
-                b.Property<string>("Reader")
-                    .HasColumnType("nvarchar(450)");
+                    b.HasKey("Id");
 
-                b.Property<string>("Condition")
-                    .HasColumnType("nvarchar(max)");
+                    b.ToTable("LibraryBook");
+                });
 
-                b.Property<DateTime?>("ReturnDate")
-                    .HasColumnType("datetime2");
+            modelBuilder.Entity("DataAcess.Data.Models.Moving", b =>
+                {
+                    b.Property<string>("Reader")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<DateTime?>("TimeTaken")
-                    .HasColumnType("datetime2");
+                    b.Property<string>("Condition")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Type")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("ReturnDate")
+                        .HasColumnType("datetime2");
 
-                b.HasKey("Reader");
+                    b.Property<DateTime?>("TimeTaken")
+                        .HasColumnType("datetime2");
 
-                b.ToTable("Moving");
-            });
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
 
-        modelBuilder.Entity("DataAcess.Data.Models.Section", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.HasKey("Reader");
 
-                b.Property<string>("Book")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.ToTable("Moving");
+                });
 
-                b.Property<string>("Description")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity("DataAcess.Data.Models.Section", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                b.HasKey("Id");
+                    b.Property<string>("Book")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.ToTable("Section");
-            });
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-        modelBuilder.Entity("DataAcess.Data.Models.Title", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Description")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                b.Property<byte[]>("ImageContent")
-                    .HasColumnType("varbinary(max)");
+                    b.ToTable("Section");
+                });
 
-                b.Property<string>("ImageName")
-                    .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity("DataAcess.Data.Models.Title", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                b.Property<int?>("Isbn")
-                    .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Publisher")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Isbn")
+                        .HasColumnType("int");
 
-                b.Property<int>("ReleaseYear")
-                    .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Section")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Publisher")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Type")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ReleaseYear")
+                        .HasColumnType("int");
 
-                b.Property<string>("Writer")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Section")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.ToTable("Title");
-            });
+                    b.Property<string>("Writer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-        modelBuilder.Entity("DataAcess.Data.Models.User", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.HasKey("Id");
 
-                b.Property<string>("Email")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.ToTable("Title");
+                });
 
-                b.Property<string>("Names")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity("DataAcess.Data.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                b.Property<string>("Password")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                b.Property<string>("Roles")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Username")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Names")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.ToTable("User");
-            });
+                    b.Property<string>("Roles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-        modelBuilder.Entity("LibrarySystem.Data.Data.Images", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("BookId")
-                    .HasColumnType("int");
+                    b.HasKey("Id");
 
-                b.Property<string>("BookImageUrl")
-                    .HasColumnType("nvarchar(max)");
+                    b.ToTable("User");
+                });
 
-                b.HasKey("Id");
+            modelBuilder.Entity("LibrarySystem.Data.Data.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                b.HasIndex("BookId");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                b.ToTable("Images");
-            });
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
 
-        modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-            {
-                b.Property<string>("Id")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("BookImageUrl")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ConcurrencyStamp")
-                    .IsConcurrencyToken()
-                    .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                b.Property<string>("Name")
-                    .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    b.HasIndex("BookId");
 
-                b.Property<string>("NormalizedName")
-                    .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    b.ToTable("Image");
+                });
 
-                b.HasKey("Id");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                b.HasIndex("NormalizedName")
-                    .IsUnique()
-                    .HasDatabaseName("RoleNameIndex")
-                    .HasFilter("[NormalizedName] IS NOT NULL");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
-                b.ToTable("AspNetRoles");
-            });
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-        modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                b.Property<string>("ClaimType")
-                    .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                b.Property<string>("ClaimValue")
-                    .HasColumnType("nvarchar(max)");
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
-                b.Property<string>("RoleId")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(450)");
+                    b.ToTable("AspNetRoles", (string)null);
+                });
 
-                b.HasKey("Id");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                b.HasIndex("RoleId");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                b.ToTable("AspNetRoleClaims");
-            });
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
 
-        modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-            {
-                b.Property<string>("Id")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("AccessFailedCount")
-                    .HasColumnType("int");
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("ConcurrencyStamp")
-                    .IsConcurrencyToken()
-                    .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                b.Property<string>("Email")
-                    .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    b.HasIndex("RoleId");
 
-                b.Property<bool>("EmailConfirmed")
-                    .HasColumnType("bit");
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
 
-                b.Property<bool>("LockoutEnabled")
-                    .HasColumnType("bit");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<DateTimeOffset?>("LockoutEnd")
-                    .HasColumnType("datetimeoffset");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
 
-                b.Property<string>("NormalizedEmail")
-                    .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("NormalizedUserName")
-                    .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                b.Property<string>("PasswordHash")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
-                b.Property<string>("PhoneNumber")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
 
-                b.Property<bool>("PhoneNumberConfirmed")
-                    .HasColumnType("bit");
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
 
-                b.Property<string>("SecurityStamp")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                b.Property<bool>("TwoFactorEnabled")
-                    .HasColumnType("bit");
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                b.Property<string>("UserName")
-                    .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasIndex("NormalizedEmail")
-                    .HasDatabaseName("EmailIndex");
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
 
-                b.HasIndex("NormalizedUserName")
-                    .IsUnique()
-                    .HasDatabaseName("UserNameIndex")
-                    .HasFilter("[NormalizedUserName] IS NOT NULL");
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
 
-                b.ToTable("AspNetUsers");
-            });
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
 
-        modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                b.Property<string>("ClaimType")
-                    .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                b.Property<string>("ClaimValue")
-                    .HasColumnType("nvarchar(max)");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
 
-                b.Property<string>("UserId")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(450)");
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                b.HasKey("Id");
+                    b.ToTable("AspNetUsers", (string)null);
+                });
 
-                b.HasIndex("UserId");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                b.ToTable("AspNetUserClaims");
-            });
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-        modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-            {
-                b.Property<string>("LoginProvider")
-                    .HasMaxLength(128)
-                    .HasColumnType("nvarchar(128)");
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ProviderKey")
-                    .HasMaxLength(128)
-                    .HasColumnType("nvarchar(128)");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ProviderDisplayName")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("UserId")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(450)");
+                    b.HasKey("Id");
 
-                b.HasKey("LoginProvider", "ProviderKey");
+                    b.HasIndex("UserId");
 
-                b.HasIndex("UserId");
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
 
-                b.ToTable("AspNetUserLogins");
-            });
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
 
-        modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-            {
-                b.Property<string>("UserId")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("RoleId")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("UserId", "RoleId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                b.HasIndex("RoleId");
+                    b.HasKey("LoginProvider", "ProviderKey");
 
-                b.ToTable("AspNetUserRoles");
-            });
+                    b.HasIndex("UserId");
 
-        modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-            {
-                b.Property<string>("UserId")
-                    .HasColumnType("nvarchar(450)");
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
 
-                b.Property<string>("LoginProvider")
-                    .HasMaxLength(128)
-                    .HasColumnType("nvarchar(128)");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("Name")
-                    .HasMaxLength(128)
-                    .HasColumnType("nvarchar(128)");
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("Value")
-                    .HasColumnType("nvarchar(max)");
+                    b.HasKey("UserId", "RoleId");
 
-                b.HasKey("UserId", "LoginProvider", "Name");
+                    b.HasIndex("RoleId");
 
-                b.ToTable("AspNetUserTokens");
-            });
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
 
-        modelBuilder.Entity("LibrarySystem.Data.Data.Images", b =>
-            {
-                b.HasOne("DataAcess.Data.Models.Title", "Title")
-                    .WithMany("TitleImages")
-                    .HasForeignKey("BookId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Navigation("Title");
-            });
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
 
-        modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-            {
-                b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                    .WithMany()
-                    .HasForeignKey("RoleId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
 
-        modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-            {
-                b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                    .WithMany()
-                    .HasForeignKey("UserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
 
-        modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-            {
-                b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                    .WithMany()
-                    .HasForeignKey("UserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+                    b.HasKey("UserId", "LoginProvider", "Name");
 
-        modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-            {
-                b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                    .WithMany()
-                    .HasForeignKey("RoleId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
 
-                b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                    .WithMany()
-                    .HasForeignKey("UserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+            modelBuilder.Entity("LibrarySystem.Data.Data.Image", b =>
+                {
+                    b.HasOne("DataAcess.Data.Models.Title", "Title")
+                        .WithMany("TitleImages")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-        modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-            {
-                b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                    .WithMany()
-                    .HasForeignKey("UserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+                    b.Navigation("Title");
+                });
 
-        modelBuilder.Entity("DataAcess.Data.Models.Title", b =>
-            {
-                b.Navigation("TitleImages");
-            });
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DataAcess.Data.Models.Title", b =>
+                {
+                    b.Navigation("TitleImages");
+                });
 #pragma warning restore 612, 618
+        }
     }
 }

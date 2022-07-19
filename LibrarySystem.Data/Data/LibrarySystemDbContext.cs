@@ -50,5 +50,5 @@ public class LibrarySystemDbContext : IdentityDbContext<IdentityUser>
     /// <summary>
     /// Images property
     /// </summary>
-    public DbSet<Image> Images { get; set; }
+    public DbSet<Image> Image { get; set; }
 }

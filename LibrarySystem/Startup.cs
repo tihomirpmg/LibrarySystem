@@ -35,7 +35,7 @@ public class Startup
         services.AddScoped<ILibraryBookRepository, LibraryBookRepository>();
         services.AddScoped<ITitleRepository, TitleRepository>();
         services.AddScoped<IDbInitializer, DbInitializer>();
-        services.AddScoped<IImagesRepository, ImagesRepository>();
+        services.AddScoped<IImagesRepository, ImageRepository>();
         services.AddScoped<IFileUpload, FileUpload>();
         services.AddScoped<ISectionRepository, SectionRepository>();
         services.AddRazorPages();
