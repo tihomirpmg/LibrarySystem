@@ -96,11 +96,15 @@ partial class TitleUpsert
     {
         try
         {
-             TitleModel.ImageUrls.Add(imageUrl);
+            if (TitleModel.ImageUrls == null)
+            {
+                TitleModel.ImageUrls = new List<string>();
+            }
+            TitleModel.ImageUrls.Add(imageUrl);
         }
         catch (RepositoryException ex)
         {
-            if(imageUrl == null)
+            if (imageUrl == null)
             {
                 throw new RepositoryException("Image url is null.");
             }
