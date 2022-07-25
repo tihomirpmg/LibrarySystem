@@ -5,7 +5,6 @@ using LibrarySystem.Business;
 using LibrarySystem.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
 
 namespace LibrarySystem.Areas.Title;
 
@@ -62,25 +61,10 @@ partial class TitleUpsert
             if (TitleModel.Id != 0 && Create == "Update")
             {
                 var updateBookResult = await TitleRepository.UpdateAsync(TitleModel.Id, TitleModel);
-                if (TitleModel.ImageUrls != null && TitleModel.ImageUrls.Any())
-                {
-                    if (DeleteImageNames != null && DeleteImageNames.Any())
-                    {
-                        foreach (var deletedImageName in DeleteImageNames)
-                        {
-                            var imageName = deletedImageName.Replace($"BookImages/", "");
-                            var result = FileUpload.DeleteFile(imageName);
-                            await ImagesRepository.DeleteImageByImageUrlAsync(deletedImageName);
-                        }
-                    }
-
-                    await AddTitleImage(updateBookResult);
-                }
             }
             else
             {
                 var createdResult = await TitleRepository.CreateAsync(TitleModel);
-                await AddTitleImage(createdResult);
             }
         }
         catch (RepositoryException ex)
@@ -113,6 +97,7 @@ partial class TitleUpsert
             errorText = ex.Message;
         }
     }
+
     private async Task AddTitleImage(TitleDto bookDetails)
     {
         foreach (var imageUrl in TitleModel.ImageUrls)
@@ -132,6 +117,7 @@ partial class TitleUpsert
             }
         }
     }
+
     internal async Task DeletePhoto(string imageUrl)
     {
         try

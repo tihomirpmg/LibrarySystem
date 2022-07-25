@@ -20,15 +20,16 @@ public static class Conversion
         var result = new Title
         {
             Id = title.Id,
-            Description = title.Description,
-            Isbn = title.Isbn,
             Name = title.Name,
-            Publisher = title.Publisher,
-            ReleaseYear = title.ReleaseYear,
-            Section = title.Section,
-            TitleImages = title.TitleImages.Select(ConvertImage).ToList(),
-            Type = title.Type,
+            Description = title.Description,
             Writer = title.Writer,
+            ReleaseYear = title.ReleaseYear,
+            Type = title.Type,
+            ImageUrl = title.ImageUrl,
+            Isbn = title.Isbn,
+            Publisher = title.Publisher,
+            Section = title.Section,
+            //TitleImages = title.TitleImages.Select(ConvertImage).ToList(),
         };
 
         return result;
@@ -61,15 +62,16 @@ public static class Conversion
         var result = new TitleDto
         {
             Id = title.Id,
-            Description = title.Description,
-            Isbn = title.Isbn,
             Name = title.Name,
-            Publisher = title.Publisher,
-            ReleaseYear = title.ReleaseYear,
-            Section = title.Section,
-            TitleImages = title.TitleImages.Select(ConvertImage).ToList(),
-            Type = title.Type,
+            Description = title.Description,
             Writer = title.Writer,
+            ReleaseYear = title.ReleaseYear,
+            Isbn = title.Isbn,
+            Type = title.Type,
+            ImageUrl = title.ImageUrl,
+            Publisher = title.Publisher,
+            Section = title.Section,
+            TitleImages = title.TitleImages?.Select(ConvertImage).ToList(),
         };
 
         return result;

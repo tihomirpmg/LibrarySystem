@@ -51,6 +51,11 @@ public class Title
     public string Type { get; set; }
 
     /// <summary>
+    /// TitleDto ImageContent property
+    /// </summary>
+    public string ImageUrl { get; set; }
+
+    /// <summary>
     /// Title Publisher property
     /// </summary>
     [Required]
