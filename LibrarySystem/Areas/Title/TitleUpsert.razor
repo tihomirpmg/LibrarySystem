@@ -22,23 +22,38 @@
                     </div>
                     <div class="form-group">
                         <label>Image Url</label>
-                        <InputText @bind-Value="TitleModel.ImageUrl" class="form-control"></InputText>
-                        <button type="button" @onclick="()=>HandleImageUpload(TitleModel.ImageUrl)" class="btn btn-outline-primary btn-block mt-4">Preview</button>
+                        <div class="input-group mb-3">
+                            <InputText @bind-Value="TitleModel.ImageUrl" class="form-control" placeholder="Image Url"></InputText>
+                            <span class="input-group-text" type="button" @onclick="()=>HandleImageUpload(TitleModel.ImageUrl)">Preview</span>
+                        </div>
                         <div class="row">
                             @if (TitleModel.ImageUrls != null && TitleModel.ImageUrls.Count > 0)
                             {
-                                int serial = 1;
                                 foreach (var bookImage in TitleModel.ImageUrls)
                                 {
                                     <div class="col-md-2 mt-3">
                                         <img src="@bookImage" width="210" height="180" />
-                                        <span class="book-image-title">@serial</span>
                                     </div>
-                                    serial++;
                                 }
                             }
                         </div>
                     </div>
+                    @*<div class="form-group">
+                    <label>Image Url</label>
+                    <InputText @bind-Value="TitleModel.ImageUrl" class="form-control"></InputText>
+                    <button type="button" @onclick="()=>HandleImageUpload(TitleModel.ImageUrl)" class="btn btn-outline-primary btn-block mt-4">Preview</button>
+                    <div class="row">
+                    @if (TitleModel.ImageUrls != null && TitleModel.ImageUrls.Count > 0)
+                    {
+                    foreach (var bookImage in TitleModel.ImageUrls)
+                    {
+                    <div class="col-md-2 mt-3">
+                    <img src="@bookImage" width="210" height="180" />
+                    </div>
+                    }
+                    }
+                    </div>
+                    </div>*@
                     <div class="form-group">
                         <label>Description</label>
                         <InputText @bind-Value="TitleModel.Description" class="form-control"></InputText>

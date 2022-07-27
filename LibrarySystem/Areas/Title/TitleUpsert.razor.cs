@@ -19,11 +19,6 @@ partial class TitleUpsert
 
     private ImageDto TitleImage { get; set; } = new ImageDto();
 
-    private List<string> DeleteImageNames { get; set; } = new List<string>();
-
-    private bool IsImageUploadProcessStarted { get; set; } = false;
-
-
     [CascadingParameter]
     public Task<AuthenticationState> AuthenticationState { get; set; }
 
@@ -43,10 +38,6 @@ partial class TitleUpsert
         {
             Create = "Update";
             TitleModel = await TitleRepository.GetAsync(Id.Value);
-            if (TitleModel?.TitleImages != null)
-            {
-                TitleModel.ImageUrls = TitleModel.TitleImages.Select(u => u.BookImageUrl).ToList();
-            }
         }
         else
         {
@@ -80,18 +71,18 @@ partial class TitleUpsert
     {
         try
         {
-            if (TitleModel.ImageUrls == null)
-            {
-                TitleModel.ImageUrls = new List<string>();
-            }
-            TitleModel.ImageUrls.Add(imageUrl);
-        }
-        catch (RepositoryException ex)
-        {
             if (imageUrl == null)
             {
                 throw new RepositoryException("Image url is null.");
             }
+            else if (TitleModel.ImageUrls == null)
+            {
+                TitleModel.ImageUrls = new List<string>();
+                TitleModel.ImageUrls.Add(imageUrl);
+            }
+        }
+        catch (RepositoryException ex)
+        {
             hasError = true;
             errorMessage = "An error occurred while uploading image to title.";
             errorText = ex.Message;
@@ -111,35 +102,6 @@ partial class TitleUpsert
                 };
                 await ImagesRepository.CreateNewImageAsync(TitleImage);
             }
-            if (imageUrl == null)
-            {
-                throw new RepositoryException("Image url is null.");
-            }
-        }
-    }
-
-    internal async Task DeletePhoto(string imageUrl)
-    {
-        try
-        {
-            var imageIndex = TitleModel.ImageUrls.FindIndex(x => x == imageUrl);
-            var imageName = imageUrl.Replace($"BookImages/", "");
-            if ((TitleModel.Id == 0) && Create == "Create")
-            {
-                var result = FileUpload.DeleteFile(imageName);
-            }
-            else
-            {
-                DeleteImageNames ??= new List<string>();
-                DeleteImageNames.Add(imageUrl);
-            }
-            TitleModel.ImageUrls.RemoveAt(imageIndex);
-        }
-        catch (RepositoryException ex)
-        {
-            hasError = true;
-            errorMessage = "An error occurred while removing image.";
-            errorText = ex.Message;
         }
     }
 }
