@@ -15,4 +15,3 @@ There are three types of roles administrator, librarian and reader each with dif
 
 	To start this Blazor Server application you need to change
 1. `DefaultConnection` in **appsettings.json** with `"DefaultConnection": "Server=.;Database=LibrarySystem;Trusted_Connection=True;MultipleActiveResultSets=true"`
-2. Right click on `Solution` in `Solution Explorer` and click `Properties`. There change single startup project to `Library System`
