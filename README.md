@@ -13,12 +13,6 @@ There are three types of roles administrator, librarian and reader each with dif
 
 ## Start The Project
 
-### 1.Change Connection
-
 	To start this Blazor Server application you need to change
 1. `DefaultConnection` in **appsettings.json** with `"DefaultConnection": "Server=.;Database=LibrarySystem;Trusted_Connection=True;MultipleActiveResultSets=true"`
-2. Change debug type to `IIS Express`
-3. Open `Package Manager Console`
-4. Change `Default project` to `LibrarySystem.Data`
-5. Type there `update-database`
-6. Enter
+2. Right click on `Solution` in `Solution Explorer` and click `Properties`. There change single startup project to `Library System`
