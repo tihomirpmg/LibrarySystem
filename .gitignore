@@ -1,0 +1,6 @@
+bin
+obj
+.vs/
+styles.css
+wwwroot/lib/bootstrap/
+*.user

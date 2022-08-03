@@ -1,0 +1,100 @@
+﻿@page "/add-title/create"
+@page "/add-title/edit/{Id:int}"
+@using LibrarySystem.Models
+@using LibrarySystem.Business.Repos
+@using LibrarySystem.Service.IService
+@inject ITitleRepository TitleRepository
+@inject IImagesRepository ImagesRepository
+@inject NavigationManager NavigationManager
+@inject IFileUpload FileUpload
+
+<div class="row mt-2 mb-5">
+    <h3 class="card-title text-info mb-3 ml-3">@Create Book</h3>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <EditForm Model="@TitleModel" OnValidSubmit="HandleLibraryBookUpsert">
+                    <DataAnnotationsValidator />
+                    <div class="form-group">
+                        <label>Name</label>
+                        <InputText @bind-Value="TitleModel.Name" class="form-control"></InputText>
+                        <ValidationMessage For="() => TitleModel.Name"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Image Url</label>
+                        <div class="input-group mb-3">
+                            <InputText @bind-Value="TitleModel.ImageUrl" class="form-control" placeholder="Image Url"></InputText>
+                            <span class="input-group-text" type="button" @onclick="()=>HandleImageUpload(TitleModel.ImageUrl)">Preview</span>
+                        </div>
+                        <div class="row">
+                            @if (TitleModel.ImageUrls != null && TitleModel.ImageUrls.Count > 0)
+                            {
+                                foreach (var bookImage in TitleModel.ImageUrls)
+                                {
+                                    <div class="col-md-2 mt-3">
+                                        <img src="@bookImage" width="210" height="180" />
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                    <label>Image Url</label>
+                    <InputText @bind-Value="TitleModel.ImageUrl" class="form-control"></InputText>
+                    <button type="button" @onclick="()=>HandleImageUpload(TitleModel.ImageUrl)" class="btn btn-outline-primary btn-block mt-4">Preview</button>
+                    <div class="row">
+                    @if (TitleModel.ImageUrls != null && TitleModel.ImageUrls.Count > 0)
+                    {
+                    foreach (var bookImage in TitleModel.ImageUrls)
+                    {
+                    <div class="col-md-2 mt-3">
+                    <img src="@bookImage" width="210" height="180" />
+                    </div>
+                    }
+                    }
+                    </div>
+                    </div>*@
+                    <div class="form-group">
+                        <label>Description</label>
+                        <InputText @bind-Value="TitleModel.Description" class="form-control"></InputText>
+                        <ValidationMessage For="() => TitleModel.Description"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Writer</label>
+                        <InputText @bind-Value="TitleModel.Writer" class="form-control"></InputText>
+                        <ValidationMessage For="() => TitleModel.Writer"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>ReleasedYear</label>
+                        <InputNumber @bind-Value="TitleModel.ReleaseYear" class="form-control"></InputNumber>
+                        <ValidationMessage For="() => TitleModel.ReleaseYear"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>ISBN</label>
+                        <InputNumber @bind-Value="TitleModel.Isbn" class="form-control"></InputNumber>
+                        <ValidationMessage For="() => TitleModel.Isbn"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <InputText @bind-Value="TitleModel.Type" class="form-control"></InputText>
+                        <ValidationMessage For="() => TitleModel.Type"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Publisher</label>
+                        <InputText @bind-Value="TitleModel.Publisher" class="form-control"></InputText>
+                        <ValidationMessage For="() => TitleModel.Publisher"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Section</label>
+                        <InputText @bind-Value="TitleModel.Section" class="form-control"></InputText>
+                        <ValidationMessage For="() => TitleModel.Section"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">@Create Book</button>
+                        <NavLink href="add-title" class="btn btn-secondary">Back to Index</NavLink>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
